@@ -3,14 +3,14 @@ import { Link } from "react-router-dom";
 import moment from "moment";
 import axios from "axios";
 
-function MyEvents() {
-  const [userInfo, setUserInfo] = useState(null);
+function EventList() {
+  const [events, setEvents] = useState([]);
   const getUserInfo = async () => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_BASE_API_URL}/api/my-events`
+        `${process.env.REACT_APP_BASE_API_URL}/api/events`
       );
-      setUserInfo(response.data);
+      setEvents(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -21,11 +21,11 @@ function MyEvents() {
 
   return (
     <div>
-      {!userInfo && <h2>Loading...</h2>}
-      {userInfo && (
+      {events.length === 0 && <h2>Loading...</h2>}
+      {events.length !== 0 && (
         <>
-          <h2>Hi, {userInfo.email}</h2>
-          {userInfo.events.map((event) => {
+          <h2>Check out our great events!</h2>
+          {events.map((event) => {
             return (
               <p key={event._id}>
                 <Link to={`/event/${event._id}`}>{event.name}</Link>
@@ -39,4 +39,4 @@ function MyEvents() {
   );
 }
 
-export default MyEvents;
+export default EventList;

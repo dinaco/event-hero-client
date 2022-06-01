@@ -5,6 +5,11 @@ import Dashboard from "./Dashboard";
 import NotFound from "./NotFound";
 import { SupervisedUserCircleRounded } from "@mui/icons-material";
 import jsonServerProvider from "ra-data-json-server";
+import UserEdit from "./UserEdit";
+import EventList from "./EventList";
+import EventEdit from "./EventEdit";
+import ProductsList from "./ProductsList";
+import ProductEdit from "./ProductEdit";
 
 function AdminPage() {
   const dataProvider = jsonServerProvider(
@@ -36,11 +41,13 @@ function AdminPage() {
         dataProvider={dataProvider}>
         <Resource
           name='users'
-          options={{ label: "Attending" }}
+          options={{ label: "Users" }}
           icon={SupervisedUserCircleRounded}
           list={UserList}
+          edit={UserEdit}
         />
-        <Resource name='events' list={ListGuesser} />
+        <Resource name='events' list={EventList} edit={EventEdit} />
+        <Resource name='products' list={ProductsList} edit={ProductEdit} />
       </Admin>
     </div>
   );

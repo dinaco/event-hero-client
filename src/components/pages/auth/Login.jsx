@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { AuthContext } from "../../../context/auth.context";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   Grid,
   Paper,
@@ -13,6 +16,15 @@ import {
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 const Login = ({ handleChange }) => {
+  const errorHandle = (message) => {
+    toast.error(message, {
+      position: "top-left",
+      autoClose: 1000,
+      closeOnClick: true,
+      //hideProgressBar: true,
+    });
+  };
+  const headerStyle = { margin: 0 };
   const paperStyle = {
     padding: 20,
     height: "73vh",
@@ -23,6 +35,7 @@ const Login = ({ handleChange }) => {
   const btnstyle = { margin: "8px 0" };
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { storeToken, authenticateUser } = useContext(AuthContext);
 
   const handleEmail = (e) => setEmail(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
@@ -31,20 +44,23 @@ const Login = ({ handleChange }) => {
     const body = { email, password };
     axios
       .post(`${process.env.REACT_APP_BASE_API_URL}/auth/login`, body)
-      .then(() => {
+      .then((response) => {
         setEmail("");
         setPassword("");
+        storeToken(response.data.authToken);
+        authenticateUser();
       })
-      .catch((err) => console.warn(err));
+      .catch((err) => errorHandle(err.response.data.errorMessage));
   };
   return (
     <Grid>
+      <ToastContainer />
       <Paper style={paperStyle}>
         <Grid align='center'>
           <Avatar style={avatarStyle}>
             <LockOutlinedIcon />
           </Avatar>
-          <h2>Sign In</h2>
+          <h2 style={headerStyle}>Sign In</h2>
         </Grid>
         <TextField
           label='Email'
@@ -62,10 +78,6 @@ const Login = ({ handleChange }) => {
           onChange={handlePassword}
           fullWidth
           required
-        />
-        <FormControlLabel
-          control={<Checkbox name='checkedB' color='primary' />}
-          label='Remember me'
         />
         <Button
           type='submit'

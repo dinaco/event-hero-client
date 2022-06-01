@@ -180,18 +180,18 @@ Components:
 
 | HTTP Method | URL                    | Request Body                 | Success status | Error Status | Description                                                                                                                     |
 | ----------- | ---------------------- | ---------------------------- | -------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------- |
-| GET         | `/auth/profile `| Saved session                               | 200            | 404          | Check if user is logged in and return profile page                                                                              |
-| POST        | `/auth/signup`  | {name, email, password}                     | 201            | 404          | Checks if fields not empty (422) and user not exists (409), then create user with encrypted password, and store user in session |
-| POST        | `/auth/login`   | {email, password}                           | 200            | 401          | Checks if fields not empty (422), if user exists (404), and if password matches (404), then stores user in session              |
-| GET         | `/api/events`   |                                             |                | 400          | Show all events
-| GET         | `/api/event/:id`|                                             |                |              | Show specific event
-| POST        | `/api/event`    | { name, img, date, products, type }         | 201            | 400          | Create new event
-| PUT         | `/api/event/:id`| { name, img, date, products, active, type } | 200            | 400          | edit event
-| DELETE      | `/api/event/:id`|                                             | 201            | 400          | delete event
-| GET         | `/api/order/:id`|                                             |                |              | show order details
-| POST        | `/api/order`    | { productsInfo }                            | 200            | 404          | adds new order
-| DELETE      | `/api/order/:id`|                                             | 200            | 400          | delete order
-| GET         | `/api/admin`    |                                             | 201            | 400          | show admin details
+| GET         | `/auth/profile `| Saved session                               | 200            | 404          | Check if user is logged in and return profile page|
+| POST        | `/auth/signup`  | {name, email, password}                     | 201            | 404          | Checks if fields not empty (422) and user not exists (409), then create user with encrypted password, and store user in session|
+| POST        | `/auth/login`   | {email, password}                           | 200            | 401          | Checks if fields not empty (422), if user exists (404), and if password matches (404), then stores user in session|
+| GET         | `/api/events`   |                                             |                | 400          | Show all events|
+| GET         | `/api/event/:id`|                                             |                |              | Show specific event|
+| POST        | `/api/event`    | { name, img, date, products, type }         | 201            | 400          | Create new event|
+| PUT         | `/api/event/:id`| { name, img, date, products, active, type } | 200            | 400          | edit event|
+| DELETE      | `/api/event/:id`|                                             | 201            | 400          | delete event|
+| GET         | `/api/order/:id`|                                             |                |              | show order details|
+| POST        | `/api/order`    | { productsInfo }                            | 200            | 404          | adds new order|
+| DELETE      | `/api/order/:id`|                                             | 200            | 400          | delete order|
+| GET         | `/api/admin`    |                                             | 201            | 400          | show admin details|
 
 <br>
 

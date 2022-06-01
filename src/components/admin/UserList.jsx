@@ -6,6 +6,8 @@ import {
   EmailField,
   TextInput,
   ImageField,
+  BooleanField,
+  ChipField,
   NumberField,
   useListContext,
   FieldProps,
@@ -15,7 +17,7 @@ import { Avatar, Typography } from "@mui/material";
 
 function UserList() {
   const userFilters = [
-    <TextInput label='Search email' source='q' alwaysOn />,
+    <TextInput label='Search name' source='q' alwaysOn />,
     // <TextInput label='Search Email' source='q' />,
   ];
   const Aside = () => {
@@ -31,11 +33,11 @@ function UserList() {
     );
   };
 
-  const AvatarField = ({ source }) => {
+  /*   const AvatarField = ({ source }) => {
     const { data, isLoading } = useListContext();
     if (!data) return null;
     if (isLoading) return null;
-    console.log(source);
+    // console.log(source);
     return data.map((user) => {
       return (
         <Avatar
@@ -45,18 +47,20 @@ function UserList() {
         />
       );
     });
-  };
+  }; */
 
   return (
     <List aside={<Aside />} filters={userFilters}>
-      <Datagrid rowClick='show'>
-        <TextField source='_id' />
-        <AvatarField source='profileImg' />
+      <Datagrid rowClick='edit'>
+        <TextField source='name' />
         <EmailField source='email' />
+        <ChipField source='role' />
+        <NumberField source='events.length' label='Attending Events' />
         <NumberField
           source='balance'
           options={{ style: "currency", currency: "EUR" }}
         />
+        <BooleanField source='active' />
       </Datagrid>
     </List>
   );

@@ -43,7 +43,7 @@ const SignInOutContainer = () => {
         <Login handleChange={handleChange} />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <Signup />
+        <Signup handleChange={handleChange} />
       </TabPanel>
     </Paper>
   );

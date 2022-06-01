@@ -43,6 +43,7 @@ function Event() {
         setProducts(response[1].data);
         response[1].data.map((product) => {
           // inputKeyObj[product._id] = 0;
+          console.log(product);
           arrInputs.push({
             [product._id]: 0,
             name: product.name,
@@ -66,25 +67,28 @@ function Event() {
             height='150px'
             width='100%'
           />
-          {products.map((product, i) => {
-            return (
-              <div key={product._id}>
-                <label
-                  htmlFor={
-                    product.name
-                  }>{`${product.name} (€${product.price})`}</label>
-                <input
-                  type='number'
-                  min='0'
-                  name={product._id}
-                  placeholder='Quantity'
-                  onChange={(event) => handleFormChange(i, event)}
-                  value={inputFields[product._id]}
-                  data-totalitem={product.price}
-                />
-              </div>
-            );
-          })}
+          {
+            // add condition to check if user is logged in to show order fields and if its the date of the event
+            products.map((product, i) => {
+              return (
+                <div key={product._id}>
+                  <label
+                    htmlFor={
+                      product.name
+                    }>{`${product.name} (€${product.price})`}</label>
+                  <input
+                    type='number'
+                    min='0'
+                    name={product._id}
+                    placeholder='Quantity'
+                    onChange={(event) => handleFormChange(i, event)}
+                    value={inputFields[product._id]}
+                    data-totalitem={product.price}
+                  />
+                </div>
+              );
+            })
+          }
 
           <button onClick={handleSubmit}>Order</button>
         </>
