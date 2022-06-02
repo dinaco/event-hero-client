@@ -5,11 +5,12 @@ import Navbar from "./components/Navbar";
 import AdminPage from "./components/admin/AdminPage";
 import MyAccount from "./components/MyAccount";
 import NotFound from "./components/admin/NotFound";
-import Event from "./components/Event";
+import Event from "./components/pages/Event";
 import Order from "./components/Order";
 import OrderPayment from "./components/OrderPayment";
 import AddBalance from "./components/AddBalance";
-import EventList from "./components/EventList";
+import EventList from "./components/pages/EventList";
+import OrderForm from "./components/pages/OrderForm";
 import { io } from "socket.io-client";
 import IsPrivate from "./components/auth/IsPrivate";
 import IsAnon from "./components/auth/IsAnon";
@@ -62,6 +63,14 @@ function App() {
           }
         />
         <Route path='/event/:eventId' element={<Event />} />
+        <Route
+          path='/event/:eventId/order'
+          element={
+            <IsPrivate>
+              <OrderForm />
+            </IsPrivate>
+          }
+        />
         <Route
           path='/order/:orderId'
           element={

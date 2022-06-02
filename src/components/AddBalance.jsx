@@ -4,18 +4,7 @@ import axios from "axios";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import {
-  Grid,
-  Paper,
-  Avatar,
-  TextField,
-  Button,
-  Typography,
-  Link,
-  FormControlLabel,
-  Checkbox,
-  InputAdornment,
-} from "@mui/material";
+import { TextField, Button, InputAdornment } from "@mui/material";
 import EuroIcon from "@mui/icons-material/Euro";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 

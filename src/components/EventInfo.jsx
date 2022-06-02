@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
 import AttendEventButton from "./AttendEventButton";
+import OrderButton from "./OrderButton";
 
 function EventInfo({ user }) {
   const { eventId } = useParams();
-  const navigate = useNavigate();
   const [event, setEvent] = useState(null);
 
   useEffect(() => {
@@ -29,6 +29,7 @@ function EventInfo({ user }) {
           />
           <h2>{event.name}</h2>
           <AttendEventButton user={user} event={event} />
+          <OrderButton user={user} event={event} />
           <p>{moment(event.date).format("DD/MM/YYYY")}</p>
           <p>{event.description}</p>
         </>

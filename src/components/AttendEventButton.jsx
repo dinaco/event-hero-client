@@ -6,8 +6,17 @@ function AttendEventButton({ user, event }) {
   const [attending, setAttending] = useState(false);
   const changeAttendingStatus = () => {
     const body = { attending, userId: user._id };
+    const getToken = localStorage.getItem("authToken");
     axios
-      .put(`${process.env.REACT_APP_BASE_API_URL}/api/event/${event._id}`, body)
+      .put(
+        `${process.env.REACT_APP_BASE_API_URL}/api/event/${event._id}`,
+        body,
+        {
+          headers: {
+            Authorization: `Bearer ${getToken}`,
+          },
+        }
+      )
       .then((response) => {
         setAttending(!attending);
       })
