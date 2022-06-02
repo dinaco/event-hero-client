@@ -52,14 +52,7 @@ function App() {
             </IsPrivate>
           }
         />
-        <Route
-          path='/event/:eventId'
-          element={
-            <IsPrivate>
-              <Event />
-            </IsPrivate>
-          }
-        />
+        <Route path='/event/:eventId' element={<Event />} />
         <Route
           path='/order/:orderId'
           element={
