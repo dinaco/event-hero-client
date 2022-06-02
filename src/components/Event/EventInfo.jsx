@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
 import AttendEventButton from "./AttendEventButton";
-import OrderButton from "./OrderButton";
+import OrderButton from "../Order/OrderButton";
 
 function EventInfo({ user }) {
   const { eventId } = useParams();

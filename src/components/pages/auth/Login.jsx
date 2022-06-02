@@ -11,8 +11,6 @@ import {
   Button,
   Typography,
   Link,
-  FormControlLabel,
-  Checkbox,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 const Login = ({ handleChange }) => {

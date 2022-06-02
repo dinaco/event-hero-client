@@ -26,12 +26,14 @@ function EventList() {
         <>
           <h2>Check out our great events!</h2>
           {events.map((event) => {
-            return (
-              <p key={event._id}>
-                <Link to={`/event/${event._id}`}>{event.name}</Link>
-                <span> | {moment(event.date).format("DD/MM/YYYY")}</span>
-              </p>
-            );
+            if (event.active) {
+              return (
+                <p key={event._id}>
+                  <Link to={`/event/${event._id}`}>{event.name}</Link>
+                  <span> | {moment(event.date).format("DD/MM/YYYY")}</span>
+                </p>
+              );
+            }
           })}
         </>
       )}

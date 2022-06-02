@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
-import { AuthContext } from "../context/auth.context";
+import { AuthContext } from "../../context/auth.context";
 import QrCode from "./QrCode";
 import axios from "axios";
 
@@ -22,8 +22,8 @@ function Order() {
         }
       );
       setOrder(response.data);
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      console.log(err.response.data.errorMessage);
     }
   };
   useEffect(() => {
@@ -39,7 +39,9 @@ function Order() {
           <h2>
             Total Amount to pay €{order.total.toFixed(2)} @ {order.event.name}
           </h2>
-          <h3>Order Status: {order.status}</h3>
+          <h3>
+            Order Status: {order.status} | Order #{order._id.slice(-6)}
+          </h3>
           <QrCode
             value={order._id}
             title={order.total.toFixed(2)}
