@@ -8,6 +8,7 @@ import NotFound from "./components/admin/NotFound";
 import Event from "./components/Event";
 import Order from "./components/Order";
 import OrderPayment from "./components/OrderPayment";
+import AddBalance from "./components/AddBalance";
 import EventList from "./components/EventList";
 import { io } from "socket.io-client";
 import IsPrivate from "./components/auth/IsPrivate";
@@ -49,6 +50,14 @@ function App() {
           element={
             <IsPrivate>
               <MyAccount />
+            </IsPrivate>
+          }
+        />
+        <Route
+          path='/add-balance/'
+          element={
+            <IsPrivate>
+              <AddBalance />
             </IsPrivate>
           }
         />
