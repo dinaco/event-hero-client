@@ -7,15 +7,18 @@ import MyAccount from "./components/MyAccount/MyAccount";
 import NotFound from "./components/admin/NotFound";
 import Event from "./components/pages/Event";
 import Order from "./components/Order/Order";
-import OrderPayment from "./components/Order/OrderPayment";
+import OrderTake from "./components/Order/OrderTake";
 import AddBalance from "./components/MyAccount/AddBalance";
 import EventList from "./components/pages/EventList";
 import OrderForm from "./components/pages/OrderForm";
 import { io } from "socket.io-client";
-import IsPrivate from "./components/auth/IsPrivate";
+import { IsCustomer, IsStaff, IsAdmin } from "./components/auth/IsPrivate";
 import IsAnon from "./components/auth/IsAnon";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import OrderList from "./components/pages/OrderList";
+import Staff from "./components/pages/Staff";
+import OrderProcessing from "./components/pages/OrderProcessing";
 
 function App() {
   const errorHandle = (message) => {
@@ -38,6 +41,7 @@ function App() {
   });
   return (
     <div className='App'>
+      <ToastContainer />
       <Navbar />
       <Routes>
         <Route
@@ -51,51 +55,75 @@ function App() {
         <Route
           path='/admin/*'
           element={
-            <IsPrivate>
+            <IsAdmin>
               <AdminPage />
-            </IsPrivate>
+            </IsAdmin>
           }
         />
         <Route path='/events/' element={<EventList />} />
         <Route
           path='/my-account/'
           element={
-            <IsPrivate>
+            <IsCustomer>
               <MyAccount />
-            </IsPrivate>
+            </IsCustomer>
           }
         />
         <Route
           path='/add-balance/'
           element={
-            <IsPrivate>
+            <IsCustomer>
               <AddBalance />
-            </IsPrivate>
+            </IsCustomer>
           }
         />
         <Route path='/event/:eventId' element={<Event />} />
         <Route
           path='/event/:eventId/order'
           element={
-            <IsPrivate>
+            <IsCustomer>
               <OrderForm />
-            </IsPrivate>
+            </IsCustomer>
+          }
+        />
+        <Route
+          path='/orders/:eventId'
+          element={
+            <IsCustomer>
+              <OrderList />
+            </IsCustomer>
           }
         />
         <Route
           path='/order/:orderId'
           element={
-            <IsPrivate>
+            <IsCustomer>
               <Order />
-            </IsPrivate>
+            </IsCustomer>
           }
         />
         <Route
-          path='/order/pay/:orderId'
+          path='/order/process/:orderId'
           element={
-            <IsPrivate>
-              <OrderPayment />
-            </IsPrivate>
+            <IsStaff>
+              <OrderTake />
+            </IsStaff>
+          }
+        />
+        <Route
+          path='/order/status/:orderId'
+          element={
+            <IsStaff>
+              <OrderProcessing />
+            </IsStaff>
+          }
+        />
+        <Route
+          path='/staff'
+          element={
+            <IsStaff>
+              <Staff />
+            </IsStaff>
           }
         />
         <Route path='*' element={<NotFound />} />

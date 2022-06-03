@@ -3,34 +3,33 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import { TextField, Button, InputAdornment } from "@mui/material";
+import {
+  TextField,
+  Button,
+  InputAdornment,
+  IconButton,
+  Stack,
+} from "@mui/material";
 import EuroIcon from "@mui/icons-material/Euro";
-import CreditCardIcon from "@mui/icons-material/CreditCard";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 
 function AddBalance() {
-  const [cvc, setCvc] = useState("");
-  const [expiry, setExpiry] = useState("");
-  const [name, setName] = useState("");
-  const [number, setNumber] = useState("");
-  const [amount, setAmount] = useState("");
+  const [amount, setAmount] = useState(0);
   const navigate = useNavigate();
-
-  const handleNumber = (e) => {
-    setNumber(e.target.value);
-  };
-  const handleName = (e) => {
-    setName(e.target.value);
-  };
-  const handleExpiry = (e) => {
-    setExpiry(e.target.value);
-  };
-  const handleCvc = (e) => {
-    setCvc(e.target.value);
-  };
 
   const handleAmount = (e) => {
     setAmount(e.target.value);
+  };
+
+  const handleIncrement = () => {
+    setAmount(amount + 10);
+  };
+
+  const handleDecrement = () => {
+    if (amount >= 10) {
+      setAmount(amount - 10);
+    }
   };
 
   const handleSubmit = (e) => {
@@ -53,78 +52,39 @@ function AddBalance() {
   return (
     <Card>
       <Box sx={{ display: "flex", flexDirection: "column" }}>
-        <TextField
-          value={amount}
-          label='Add Amount'
-          onChange={handleAmount}
-          variant='outlined'
-          type='number'
-          InputLabelProps={{
-            shrink: true,
-          }}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position='start'>
-                <EuroIcon />
-              </InputAdornment>
-            ),
-          }}
-        />
-        <TextField
-          value={number}
-          label='Card Number'
-          onChange={handleNumber}
-          variant='outlined'
-          type='number'
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position='start'>
-                <CreditCardIcon />
-              </InputAdornment>
-            ),
-          }}
-        />
-        <TextField
-          value={name}
-          label='Card Name'
-          onChange={handleName}
-          variant='outlined'
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position='start'>
-                <CreditCardIcon />
-              </InputAdornment>
-            ),
-          }}
-        />
-        <TextField
-          value={expiry}
-          label='Card Expiry Date'
-          onChange={handleExpiry}
-          variant='outlined'
-          type='number'
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position='start'>
-                <CreditCardIcon />
-              </InputAdornment>
-            ),
-          }}
-        />
-        <TextField
-          value={cvc}
-          label='Card CVC'
-          onChange={handleCvc}
-          variant='outlined'
-          type='number'
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position='start'>
-                <CreditCardIcon />
-              </InputAdornment>
-            ),
-          }}
-        />
+        <Stack direction='row' spacing={1}>
+          <IconButton
+            onClick={handleDecrement}
+            color='primary'
+            aria-label='add to shopping cart'>
+            <RemoveCircleIcon fontSize='large' />
+          </IconButton>
+          <TextField
+            value={amount}
+            disabled
+            label='Add Amount'
+            onChange={handleAmount}
+            variant='outlined'
+            type='number'
+            InputLabelProps={{
+              shrink: true,
+            }}
+            InputProps={{
+              inputProps: { min: 0 },
+              startAdornment: (
+                <InputAdornment position='start'>
+                  <EuroIcon />
+                </InputAdornment>
+              ),
+            }}
+          />
+          <IconButton
+            onClick={handleIncrement}
+            color='primary'
+            aria-label='add to shopping cart'>
+            <AddCircleIcon fontSize='large' />
+          </IconButton>
+        </Stack>
         <Button type='submit' fullWidth onClick={handleSubmit} color='primary'>
           Pay
         </Button>

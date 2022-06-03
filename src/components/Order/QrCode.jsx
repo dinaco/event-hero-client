@@ -12,9 +12,9 @@ function QrCode({ value, title, bgColor }) {
         size={256}
         bgColor={bgColor}
         style={{ height: "100%", maxHeight: "100%", width: "auto" }}
-        value={`${process.env.REACT_APP_BASE_URL}/order/pay/${value}`}
+        value={`${process.env.REACT_APP_BASE_URL}/order/process/${value}`}
         viewBox={`0 0 256 256`}
-        title={`Total amount to pay: €${title}`}
+        title={`Total Order Amount: €${title}`}
       />
     </div>
   );

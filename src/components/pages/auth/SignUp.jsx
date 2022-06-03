@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   Grid,
   Paper,
@@ -17,6 +19,15 @@ import {
 } from "@mui/material";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 const Signup = ({ handleChange }) => {
+  const errorHandle = (message) => {
+    toast.error(message, {
+      position: "top-left",
+      autoClose: 1000,
+      closeOnClick: true,
+      //hideProgressBar: true,
+    });
+  };
+
   const paperStyle = { padding: 20, width: 300, margin: "0 auto" };
   const headerStyle = { margin: 0 };
   const avatarStyle = { backgroundColor: "#1bbd7e" };
@@ -40,11 +51,12 @@ const Signup = ({ handleChange }) => {
         setPassword("");
         handleChange(e, 0);
       })
-      .catch((err) => console.warn(err));
+      .catch((err) => errorHandle(err.response.data.errorMessage));
   };
 
   return (
     <Grid>
+      <ToastContainer />
       <Paper style={paperStyle}>
         <Grid align='center'>
           <Avatar style={avatarStyle}>

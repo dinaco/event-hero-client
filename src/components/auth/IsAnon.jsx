@@ -3,7 +3,7 @@ import { AuthContext } from "../../context/auth.context";
 import { useNavigate } from "react-router-dom";
 
 function IsAnon({ children }) {
-  const { isLoggedIn, isLoading } = useContext(AuthContext);
+  const { isLoggedIn, user, isLoading } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -11,8 +11,12 @@ function IsAnon({ children }) {
 
   if (!isLoggedIn) {
     return children;
-  } else {
+  } else if (user.role === "customer") {
     return navigate("/my-account");
+  } else if (user.role === "event-staff") {
+    return navigate("/staff");
+  } else if (user.role === "app-admin" || user.role === "event-admin") {
+    return navigate("/admin");
   }
 }
 

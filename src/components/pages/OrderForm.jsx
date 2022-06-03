@@ -35,20 +35,26 @@ function OrderForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post(
-        `${process.env.REACT_APP_BASE_API_URL}/api/order/${eventId}`,
-        inputFields,
-        {
-          headers: {
-            Authorization: `Bearer ${getToken}`,
-          },
-        }
-      )
-      .then((response) => {
-        navigate(`/order/${response.data._id}`);
-      })
-      .catch((err) => errorHandle(err.response.data.errorMessage));
+    if (total <= 0) {
+      return errorHandle("Add items to your order");
+    } else if (user.balance < total) {
+      return errorHandle("Insuficient balance, add funds!");
+    } else {
+      axios
+        .post(
+          `${process.env.REACT_APP_BASE_API_URL}/api/order/${eventId}`,
+          inputFields,
+          {
+            headers: {
+              Authorization: `Bearer ${getToken}`,
+            },
+          }
+        )
+        .then((response) => {
+          navigate(`/order/${response.data._id}`);
+        })
+        .catch((err) => errorHandle(err.response.data.errorMessage));
+    }
   };
 
   useEffect(() => {
@@ -94,22 +100,24 @@ function OrderForm() {
           {user.events[0].products.length > 0 &&
             // add condition to check if user is logged in to show order fields and if its the date of the event
             user.events[0].products.map((product, i) => {
-              return (
-                <div key={product._id}>
-                  <label htmlFor={product.name}>{`${
-                    product.name
-                  } (€${product.price.toFixed(2)})`}</label>
-                  <input
-                    type='number'
-                    min='0'
-                    name={product._id}
-                    placeholder='Quantity'
-                    onChange={(event) => handleFormChange(i, event)}
-                    value={inputFields[product._id]}
-                    data-price={product.price}
-                  />
-                </div>
-              );
+              if (product.active) {
+                return (
+                  <div key={product._id}>
+                    <label htmlFor={product.name}>{`${
+                      product.name
+                    } (€${product.price.toFixed(2)})`}</label>
+                    <input
+                      type='number'
+                      min='0'
+                      name={product._id}
+                      placeholder='Quantity'
+                      onChange={(event) => handleFormChange(i, event)}
+                      value={inputFields[product._id]}
+                      data-price={product.price}
+                    />
+                  </div>
+                );
+              }
             })}
           <p>Order total €{total.toFixed(2)}</p>
           <button onClick={handleSubmit}>Order</button>

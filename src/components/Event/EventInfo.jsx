@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
 import AttendEventButton from "./AttendEventButton";
@@ -32,6 +32,7 @@ function EventInfo({ user }) {
           <OrderButton user={user} event={event} />
           <p>{moment(event.date).format("DD/MM/YYYY")}</p>
           <p>{event.description}</p>
+          <Link to={`/orders/${eventId}`}>Order List</Link>
         </>
       )}
     </div>
