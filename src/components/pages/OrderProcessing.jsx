@@ -41,8 +41,8 @@ function OrderProcessing() {
   const handleCharge = async () => {
     const body = {};
     try {
-      await axios.put(
-        `${process.env.REACT_APP_BASE_API_URL}/api/order/charge/${orderId}/`,
+      let okay = await axios.put(
+        `${process.env.REACT_APP_BASE_API_URL}/api/order/charge/${orderId}`,
         body,
         {
           headers: {
@@ -50,10 +50,8 @@ function OrderProcessing() {
           },
         }
       );
-      console.log("navigaaaate!");
-      navigate(`/staff`);
+      navigate("/staff");
     } catch (err) {
-      console.log("Error", err);
       errorHandle(err.response.data.errorMessage);
     }
   };
