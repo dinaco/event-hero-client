@@ -24,7 +24,6 @@ function Order() {
           },
         }
       );
-      console.log(response.data);
       setOrder(response.data);
     } catch (err) {
       console.log(err.response.data.errorMessage);

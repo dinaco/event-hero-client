@@ -10,21 +10,13 @@ function Navbar() {
       {isLoggedIn && (
         <>
           {user.role === "customer" && (
-            <>
-              <Link to='/events'>
-                <button>All Events</button>
-              </Link>
-              <Link to='/my-account'>
-                <button>My Account</button>
-              </Link>
-            </>
-          )}
-          {user.role === "event-staff" && (
-            <Link to='/staff'>
-              <button>Staff</button>
+            <Link to='/events'>
+              <button>All Events</button>
             </Link>
           )}
-
+          <Link to='/my-account'>
+            <button>My Account</button>
+          </Link>
           <button onClick={logoutUser}>Logout</button>
           <p>{user.email}</p>
         </>

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import moment from "moment";
 
 function PastEvents({ userEvents, today }) {
+  let eventsCounter = 0;
   return (
     <div>
       {!userEvents && <h2>No Past events</h2>}
@@ -12,6 +13,7 @@ function PastEvents({ userEvents, today }) {
           {/* userInfo.events.lenght > 0 && */}
           {userEvents.map((event) => {
             if (moment(today.split("T")[0]).isAfter(event.date.split("T")[0])) {
+              eventsCounter++;
               return (
                 <p key={event._id}>
                   <Link to={`/event/${event._id}`}>{event.name}</Link>
@@ -23,6 +25,11 @@ function PastEvents({ userEvents, today }) {
               <Link to={`/events`}>Check out our events!</Link>;
             }
           })}
+          {eventsCounter === 0 && (
+            <>
+              <p>{eventsCounter} past events.</p>
+            </>
+          )}
         </>
       )}
     </div>

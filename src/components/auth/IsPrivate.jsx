@@ -43,5 +43,18 @@ function IsAdmin({ children }) {
     return children;
   }
 }
+function IsPrivate({ children }) {
+  const { isLoggedIn, isLoading } = useContext(AuthContext);
 
-export { IsStaff, IsCustomer, IsAdmin };
+  const navigate = useNavigate();
+
+  if (isLoading) return <p>Loading ...</p>;
+
+  if (!isLoggedIn) {
+    return navigate("/");
+  } else {
+    return children;
+  }
+}
+
+export { IsStaff, IsCustomer, IsAdmin, IsPrivate };

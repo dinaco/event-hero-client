@@ -50,7 +50,7 @@ function OrderProcessing() {
           },
         }
       );
-      navigate("/staff");
+      navigate(`/orders/${order.event._id}`);
     } catch (err) {
       errorHandle(err.response.data.errorMessage);
     }

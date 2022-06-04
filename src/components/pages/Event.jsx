@@ -1,13 +1,10 @@
-import React, { useContext } from "react";
-import { AuthContext } from "../../context/auth.context";
+import React from "react";
 import EventInfo from "../Event/EventInfo";
 
 function Event() {
-  const { user } = useContext(AuthContext);
-
   return (
     <div>
-      <EventInfo user={user} />
+      <EventInfo />
     </div>
   );
 }

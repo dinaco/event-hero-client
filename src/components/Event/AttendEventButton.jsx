@@ -5,7 +5,7 @@ import axios from "axios";
 function AttendEventButton({ user, event }) {
   const [attending, setAttending] = useState(false);
   const changeAttendingStatus = () => {
-    const body = { attending, userId: user._id };
+    const body = { attending };
     const getToken = localStorage.getItem("authToken");
     axios
       .put(

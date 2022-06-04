@@ -11,10 +11,8 @@ function IsAnon({ children }) {
 
   if (!isLoggedIn) {
     return children;
-  } else if (user.role === "customer") {
+  } else if (user.role === "customer" || user.role === "event-staff") {
     return navigate("/my-account");
-  } else if (user.role === "event-staff") {
-    return navigate("/staff");
   } else if (user.role === "app-admin" || user.role === "event-admin") {
     return navigate("/admin");
   }

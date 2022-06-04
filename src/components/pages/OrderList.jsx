@@ -2,10 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
-import AttendEventButton from "../Event/AttendEventButton";
-import OrderButton from "../Order/OrderButton";
 
-function OrderList({ user }) {
+function OrderList() {
   const { eventId } = useParams();
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState(null);
@@ -21,15 +19,15 @@ function OrderList({ user }) {
         },
       })
       .then((response) => {
-        console.log(response.data.orders);
-        const total = response.data.orders.reduce((a, b) => {
+        const { orders } = response.data;
+        const total = orders.reduce((a, b) => {
           if (b.status === "completed") {
             return a + b.total;
           } else return a;
         }, 0);
         setTotalSpent(total);
         setUserInfo(response.data);
-        setOrdersInfo(response.data.orders.reverse());
+        setOrdersInfo(orders.reverse());
       })
       .catch((err) => console.log(err));
   }, []);

@@ -35,9 +35,11 @@ function MyAccount() {
       {userInfo && (
         <>
           <h2>Hi, {userInfo.name}</h2>
-          <h3>
-            <Balance balance={userInfo.balance} />
-          </h3>
+          {userInfo.role === "customer" && (
+            <h3>
+              <Balance balance={userInfo.balance} />
+            </h3>
+          )}
           <Ongoing userEvents={userInfo.events} today={today} />
           <UpcomingEvents userEvents={userInfo.events} today={today} />
           <PastEvents userEvents={userInfo.events} today={today} />

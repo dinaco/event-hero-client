@@ -12,12 +12,16 @@ import AddBalance from "./components/MyAccount/AddBalance";
 import EventList from "./components/pages/EventList";
 import OrderForm from "./components/pages/OrderForm";
 import { io } from "socket.io-client";
-import { IsCustomer, IsStaff, IsAdmin } from "./components/auth/IsPrivate";
+import {
+  IsCustomer,
+  IsStaff,
+  IsAdmin,
+  IsPrivate,
+} from "./components/auth/IsPrivate";
 import IsAnon from "./components/auth/IsAnon";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import OrderList from "./components/pages/OrderList";
-import Staff from "./components/pages/Staff";
 import OrderProcessing from "./components/pages/OrderProcessing";
 
 function App() {
@@ -64,9 +68,9 @@ function App() {
         <Route
           path='/my-account/'
           element={
-            <IsCustomer>
+            <IsPrivate>
               <MyAccount />
-            </IsCustomer>
+            </IsPrivate>
           }
         />
         <Route
@@ -89,17 +93,17 @@ function App() {
         <Route
           path='/orders/:eventId'
           element={
-            <IsCustomer>
+            <IsPrivate>
               <OrderList />
-            </IsCustomer>
+            </IsPrivate>
           }
         />
         <Route
           path='/order/:orderId'
           element={
-            <IsCustomer>
+            <IsPrivate>
               <Order />
-            </IsCustomer>
+            </IsPrivate>
           }
         />
         <Route
@@ -115,14 +119,6 @@ function App() {
           element={
             <IsStaff>
               <OrderProcessing />
-            </IsStaff>
-          }
-        />
-        <Route
-          path='/staff'
-          element={
-            <IsStaff>
-              <Staff />
             </IsStaff>
           }
         />
