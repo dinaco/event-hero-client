@@ -32,12 +32,11 @@ const StyledLocation = styled(Typography)`
 
 function EventCard({ eventInfo }) {
   return (
-    <Card sx={{ maxWidth: 390, my: 2 }}>
+    <Card sx={{ my: 2 }}>
       <Link to={`/event/${eventInfo._id}`}>
         <CardActionArea>
           <CardMedia
             component='img'
-            height='140'
             image={eventInfo.splashImg}
             alt={eventInfo.name}
           />

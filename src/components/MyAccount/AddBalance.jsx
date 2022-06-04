@@ -9,6 +9,7 @@ import {
   InputAdornment,
   IconButton,
   Stack,
+  Typography,
 } from "@mui/material";
 import EuroIcon from "@mui/icons-material/Euro";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
@@ -51,26 +52,45 @@ function AddBalance() {
 
   return (
     <Card>
-      <Box sx={{ display: "flex", flexDirection: "column" }}>
-        <Stack direction='row' spacing={1}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}>
+        <Typography
+          variant='h5'
+          sx={{
+            my: 2,
+            alignSelf: "center",
+          }}>
+          Add Balance
+        </Typography>
+        <Stack
+          direction='row'
+          sx={{ justifyContent: "center", alignItems: "center" }}
+          spacing={1}>
           <IconButton
             onClick={handleDecrement}
             color='primary'
-            aria-label='add to shopping cart'>
-            <RemoveCircleIcon fontSize='large' />
+            aria-label='Decrement'>
+            <RemoveCircleIcon sx={{ width: 72, height: 72 }} />
           </IconButton>
           <TextField
             value={amount}
             disabled
-            label='Add Amount'
+            label='Amount'
             onChange={handleAmount}
             variant='outlined'
             type='number'
+            sx={{ width: "50%", fontSize: 50 }}
             InputLabelProps={{
+              style: { fontSize: 20 },
               shrink: true,
             }}
             InputProps={{
-              inputProps: { min: 0 },
+              min: 0,
+              style: { fontSize: 40 },
               startAdornment: (
                 <InputAdornment position='start'>
                   <EuroIcon />
@@ -81,12 +101,21 @@ function AddBalance() {
           <IconButton
             onClick={handleIncrement}
             color='primary'
-            aria-label='add to shopping cart'>
-            <AddCircleIcon fontSize='large' />
+            aria-label='Increment'>
+            <AddCircleIcon sx={{ width: 72, height: 72 }} />
           </IconButton>
         </Stack>
-        <Button type='submit' fullWidth onClick={handleSubmit} color='primary'>
-          Pay
+        <Button
+          sx={{
+            my: 2,
+            py: 2,
+            width: "75%",
+          }}
+          type='submit'
+          variant='contained'
+          onClick={handleSubmit}
+          color='primary'>
+          <Typography variant='h5'>Pay</Typography>
         </Button>
       </Box>
     </Card>

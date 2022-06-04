@@ -33,7 +33,7 @@ function EventList() {
         variant='outlined'
         onChange={handleSearch}
         value={searchEvents}
-        sx={{ width: 1 }}
+        fullWidth
       />
       {events.length === 0 && (
         <Typography variant='h3' gutterBottom component='div'>
