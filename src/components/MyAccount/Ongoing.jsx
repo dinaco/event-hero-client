@@ -9,7 +9,7 @@ function Ongoing({ userEvents, today }) {
       {!userEvents && <h2>No Ongoing Events</h2>}
       {userEvents && (
         <>
-          <h3>Ongoing events</h3>
+          <h3>Today's events</h3>
           {/* userInfo.events.lenght > 0 && */}
           {userEvents.map((event) => {
             if (

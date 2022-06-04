@@ -5,12 +5,23 @@ import QrCode from "./QrCode";
 import axios from "axios";
 import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Order() {
   const { orderId } = useParams();
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
   const [order, setOrder] = useState(null);
+
+  const errorHandle = (message) => {
+    toast.error(message, {
+      position: "top-left",
+      autoClose: 1000,
+      closeOnClick: true,
+      //hideProgressBar: true,
+    });
+  };
 
   const getToken = localStorage.getItem("authToken");
 
@@ -26,7 +37,7 @@ function Order() {
       );
       setOrder(response.data);
     } catch (err) {
-      console.log(err.response.data.errorMessage);
+      errorHandle(err.response.data.errorMessage);
     }
   };
 
@@ -42,7 +53,25 @@ function Order() {
       );
       navigate(`/event/${order.event._id}`);
     } catch (err) {
-      console.log(err.response.data.errorMessage);
+      errorHandle(err.response.data.errorMessage);
+    }
+  };
+
+  const handleCharge = async () => {
+    const body = {};
+    try {
+      await axios.put(
+        `${process.env.REACT_APP_BASE_API_URL}/api/order/charge/${orderId}`,
+        body,
+        {
+          headers: {
+            Authorization: `Bearer ${getToken}`,
+          },
+        }
+      );
+      navigate(`/orders/${order.event._id}`);
+    } catch (err) {
+      errorHandle(err.response.data.errorMessage);
     }
   };
 
@@ -52,17 +81,22 @@ function Order() {
 
   return (
     <div>
+      <ToastContainer />
       {!order && <h2>Order Not Found</h2>}
       {order && (
         <div style={{ backgroundColor: order.bgColor }}>
-          {order.status !== "completed" && <h2>My name is: {user.name}</h2>}
           <h2>
             Amount €{order.total.toFixed(2)} @ {order.event.name}
           </h2>
           <h3>
-            {order.staff && <p>Staff: {order.staff.name}</p>} Order Status:{" "}
-            {order.status} | Order #{order._id.slice(-6)}{" "}
-            {order.status !== "completed" && (
+            {order.status !== "completed" && user.role === "event-staff" && (
+              <p>Customer: {order.customer.name}</p>
+            )}
+            {order.staff && user.role === "customer" && (
+              <p>Staff: {order.staff.name}</p>
+            )}{" "}
+            Order Status: {order.status} | Order #{order._id.slice(-6)}{" "}
+            {order.status !== "completed" && user.role === "customer" && (
               <Button
                 variant='contained'
                 color='error'
@@ -71,8 +105,19 @@ function Order() {
                 Delete
               </Button>
             )}
+            {order.status === "processing" &&
+              order.event.takeOrders &&
+              user.role === "event-staff" && (
+                <Button
+                  variant='contained'
+                  color='error'
+                  onClick={handleCharge}
+                  startIcon={<DeleteIcon />}>
+                  Charge
+                </Button>
+              )}
           </h3>
-          {order.status !== "completed" && (
+          {order.status === "pending" && user.role === "customer" && (
             <QrCode
               value={order._id}
               title={order.total.toFixed(2)}

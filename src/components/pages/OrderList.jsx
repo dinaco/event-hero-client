@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { AuthContext } from "../../context/auth.context";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
@@ -9,6 +10,8 @@ function OrderList() {
   const [userInfo, setUserInfo] = useState(null);
   const [ordersInfo, setOrdersInfo] = useState(null);
   const [totalSpent, setTotalSpent] = useState(0);
+  const [countCompleted, setCountCompleted] = useState(0);
+  const { user } = useContext(AuthContext);
   const getToken = localStorage.getItem("authToken");
 
   useEffect(() => {
@@ -20,11 +23,14 @@ function OrderList() {
       })
       .then((response) => {
         const { orders } = response.data;
+        let completed = 0;
         const total = orders.reduce((a, b) => {
           if (b.status === "completed") {
+            completed++;
             return a + b.total;
           } else return a;
         }, 0);
+        setCountCompleted(completed);
         setTotalSpent(total);
         setUserInfo(response.data);
         setOrdersInfo(orders.reverse());
@@ -48,7 +54,19 @@ function OrderList() {
             width='100%'
           />
           <h2>
-            {userInfo.events[0].name} | Total spent: {totalSpent} €
+            {userInfo.events[0].name} |{" "}
+            {user.role === "customer" && (
+              <span>Total spent: € {totalSpent}</span>
+            )}
+            {user.role === "event-staff" && (
+              <>
+                <span>All Orders: {ordersInfo.length}</span> |
+                <span>
+                  Processing Orders: {ordersInfo.length - countCompleted}
+                </span>{" "}
+                |<span>Completed Orders: {countCompleted}</span>
+              </>
+            )}
           </h2>
           <p>{moment(userInfo.events[0].date).format("DD/MM/YYYY")}</p>
           <p>{userInfo.events[0].description}</p>

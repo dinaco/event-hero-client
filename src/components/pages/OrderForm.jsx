@@ -65,17 +65,22 @@ function OrderForm() {
         },
       })
       .then((response) => {
-        setUser(response.data);
-        response.data.events[0].products.map((product) => {
-          // inputKeyObj[product._id] = 0;
-          arrInputs.push({
-            [product._id]: 0,
-            name: product.name,
-            price: product.price,
+        const { products, takeOrders } = response.data.events[0];
+        if (takeOrders) {
+          setUser(response.data);
+          products.map((product) => {
+            // inputKeyObj[product._id] = 0;
+            arrInputs.push({
+              [product._id]: 0,
+              name: product.name,
+              price: product.price,
+            });
+            // setInputFields((prev) => [...prev, inputKeyObj]);
           });
-          // setInputFields((prev) => [...prev, inputKeyObj]);
-        });
-        setInputFields(arrInputs);
+          setInputFields(arrInputs);
+        } else {
+          navigate(`/`);
+        }
       });
   }, []);
 

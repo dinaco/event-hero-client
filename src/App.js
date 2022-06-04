@@ -22,7 +22,6 @@ import IsAnon from "./components/auth/IsAnon";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import OrderList from "./components/pages/OrderList";
-import OrderProcessing from "./components/pages/OrderProcessing";
 
 function App() {
   const errorHandle = (message) => {
@@ -111,14 +110,6 @@ function App() {
           element={
             <IsStaff>
               <OrderTake />
-            </IsStaff>
-          }
-        />
-        <Route
-          path='/order/status/:orderId'
-          element={
-            <IsStaff>
-              <OrderProcessing />
             </IsStaff>
           }
         />

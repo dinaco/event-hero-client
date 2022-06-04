@@ -34,7 +34,7 @@ function EventInfo() {
           {user.role === "customer" && (
             <AttendEventButton user={user} event={event} />
           )}
-          {user.role === "customer" && (
+          {user.role === "customer" && event.takeOrders && (
             <OrderButton user={user} event={event} />
           )}
           <p>{moment(event.date).format("DD/MM/YYYY")}</p>
