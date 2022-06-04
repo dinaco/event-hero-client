@@ -55,7 +55,11 @@ function EventCard({ eventInfo }) {
               </Typography>
               <AvatarGroup spacing='small' total={eventInfo.customers.length}>
                 {eventInfo.customers.slice(0, 2).map((customer) => (
-                  <Avatar alt={customer.name} src={customer.profileImg} />
+                  <Avatar
+                    key={customer._id}
+                    alt={customer.name}
+                    src={customer.profileImg}
+                  />
                 ))}
               </AvatarGroup>
             </Stack>
