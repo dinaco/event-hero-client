@@ -1,38 +1,50 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import moment from "moment";
 import axios from "axios";
+import { TextField, Typography } from "@mui/material";
+import EventCard from "../Event/EventCard";
 
 function EventList() {
   const [events, setEvents] = useState([]);
-  const getUserInfo = async () => {
+  const [searchEvents, setSearchEvents] = useState("");
+  const handleSearch = (e) => setSearchEvents(e.target.value);
+
+  const queryEvents = async () => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_BASE_API_URL}/api/events`
+        `${process.env.REACT_APP_BASE_API_URL}/api/events?q=${searchEvents}`
       );
       setEvents(response.data);
     } catch (error) {
       console.log(error);
     }
   };
+
   useEffect(() => {
-    getUserInfo();
-  }, []);
+    queryEvents();
+  }, [searchEvents]);
 
   return (
     <div>
-      {events.length === 0 && <h2>Loading...</h2>}
+      <Typography variant='h5' gutterBottom component='div'>
+        Check out our great events!
+      </Typography>
+      <TextField
+        label='Search Events'
+        variant='outlined'
+        onChange={handleSearch}
+        value={searchEvents}
+        sx={{ width: 1 }}
+      />
+      {events.length === 0 && (
+        <Typography variant='h3' gutterBottom component='div'>
+          No events found!
+        </Typography>
+      )}
       {events.length !== 0 && (
         <>
-          <h2>Check out our great events!</h2>
           {events.map((event) => {
             if (event.active) {
-              return (
-                <p key={event._id}>
-                  <Link to={`/event/${event._id}`}>{event.name}</Link>
-                  <span> | {moment(event.date).format("DD/MM/YYYY")}</span>
-                </p>
-              );
+              return <EventCard key={event._id} eventInfo={event} />;
             }
           })}
         </>

@@ -5,15 +5,26 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router } from "react-router-dom";
 import { AuthProviderWrapper } from "./context/auth.context";
+import { ThemeProvider } from "styled-components";
+import GlobalStyle from "./GlobalStyles";
+
+const theme = {
+  colors: {
+    green: "#88b04b",
+  },
+};
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Router>
-      <AuthProviderWrapper>
-        <App />
-      </AuthProviderWrapper>
-    </Router>
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <Router>
+        <AuthProviderWrapper>
+          <App />
+        </AuthProviderWrapper>
+      </Router>
+    </ThemeProvider>
   </React.StrictMode>
 );
 
