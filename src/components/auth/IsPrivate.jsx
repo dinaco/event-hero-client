@@ -1,13 +1,14 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../../context/auth.context";
 import { useNavigate } from "react-router-dom";
+import LoadingImg from "../LoadingImg";
 
 function IsStaff({ children }) {
   const { isLoggedIn, user, isLoading } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
-  if (isLoading) return <p>Loading ...</p>;
+  if (isLoading) return <LoadingImg />;
 
   if (!isLoggedIn || user.role !== "event-staff") {
     return navigate("/");
@@ -21,7 +22,7 @@ function IsCustomer({ children }) {
 
   const navigate = useNavigate();
 
-  if (isLoading) return <p>Loading ...</p>;
+  if (isLoading) return <LoadingImg />;
 
   if (!isLoggedIn || user.role !== "customer") {
     return navigate("/");
@@ -35,7 +36,7 @@ function IsAdmin({ children }) {
 
   const navigate = useNavigate();
 
-  if (isLoading) return <p>Loading ...</p>;
+  if (isLoading) return <LoadingImg />;
 
   if (!isLoggedIn || user.role !== "app-admin" || user.role !== "event-admin") {
     return navigate("/");
@@ -48,7 +49,7 @@ function IsPrivate({ children }) {
 
   const navigate = useNavigate();
 
-  if (isLoading) return <p>Loading ...</p>;
+  if (isLoading) return <LoadingImg />;
 
   if (!isLoggedIn) {
     return navigate("/");

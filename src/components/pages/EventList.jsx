@@ -2,20 +2,25 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { TextField, Typography } from "@mui/material";
 import EventCard from "../Event/EventCard";
+import LoadingImg from "../LoadingImg";
 
 function EventList() {
   const [events, setEvents] = useState([]);
   const [searchEvents, setSearchEvents] = useState("");
+  const [pageLoading, setPageLoading] = useState(true);
   const handleSearch = (e) => setSearchEvents(e.target.value);
 
   const queryEvents = async () => {
     try {
+      setPageLoading(true);
       const response = await axios.get(
         `${process.env.REACT_APP_BASE_API_URL}/api/events?q=${searchEvents}`
       );
       setEvents(response.data);
+      setPageLoading(false);
     } catch (error) {
       console.log(error);
+      setPageLoading(false);
     }
   };
 
@@ -35,7 +40,8 @@ function EventList() {
         value={searchEvents}
         fullWidth
       />
-      {events.length === 0 && (
+      {pageLoading && <LoadingImg />}
+      {events.length === 0 && !pageLoading && (
         <Typography variant='h3' gutterBottom component='div'>
           No events found!
         </Typography>

@@ -1,20 +1,20 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
-import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 
-function OrderButton() {
+function OrderListButton({ event }) {
   const navigate = useNavigate();
 
   const navigateTo = () => {
-    navigate("order/");
+    navigate(`/orders/${event._id}`);
   };
 
   return (
     <Button variant='contained' onClick={navigateTo} size='large'>
-      <AttachMoneyIcon /> Order
+      <FormatListBulletedIcon /> Orders
     </Button>
   );
 }
 
-export default OrderButton;
+export default OrderListButton;

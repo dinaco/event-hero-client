@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
+import { Paper, Typography, Stack } from "@mui/material";
+import LoadingImg from "../LoadingImg";
 import axios from "axios";
-import Ongoing from "./Ongoing";
-import UpcomingEvents from "./UpcomingEvents";
-import PastEvents from "./PastEvents";
 import Balance from "./Balance";
+import TabEvents from "./TabEvents";
 
 function MyAccount() {
   let today = moment(new Date()).format();
@@ -31,19 +31,19 @@ function MyAccount() {
 
   return (
     <div>
-      {!userInfo && <h2>Loading...</h2>}
+      {!userInfo && <LoadingImg />}
       {userInfo && (
-        <>
-          <h2>Hi, {userInfo.name}</h2>
-          {userInfo.role === "customer" && (
-            <h3>
+        <Stack spacing={2}>
+          <Paper elevation={20}>
+            <Typography px={4} py={1} variant='h4' component='div' gutterBottom>
+              Hi, {userInfo.name}
+            </Typography>
+            {userInfo.role === "customer" && (
               <Balance balance={userInfo.balance} />
-            </h3>
-          )}
-          <Ongoing userEvents={userInfo.events} today={today} />
-          <UpcomingEvents userEvents={userInfo.events} today={today} />
-          <PastEvents userEvents={userInfo.events} today={today} />
-        </>
+            )}
+          </Paper>
+          <TabEvents today={today} userEvents={userInfo.events} />
+        </Stack>
       )}
     </div>
   );

@@ -2,46 +2,36 @@ import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../../context/auth.context";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
-import moment from "moment";
 import AttendEventButton from "./AttendEventButton";
 import OrderButton from "../Order/OrderButton";
+import EventCard from "./EventCard";
+import LoadingImg from "../LoadingImg";
 
 function EventInfo() {
   const { eventId } = useParams();
   const [event, setEvent] = useState(null);
+  const [pageLoading, setPageLoading] = useState(true);
 
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
+    setPageLoading(true);
     axios
       .get(`${process.env.REACT_APP_BASE_API_URL}/api/event/${eventId}`)
-      .then((response) => setEvent(response.data))
-      .catch((err) => console.log(err));
+      .then((response) => {
+        setEvent(response.data);
+        setPageLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setPageLoading(false);
+      });
   }, []);
 
   return (
     <div>
-      {!event && <h2>No events found!</h2>}
-      {event && (
-        <>
-          <img
-            src={event.splashImg}
-            alt={event.name}
-            height='150px'
-            width='100%'
-          />
-          <h2>{event.name}</h2>
-          {user.role === "customer" && (
-            <AttendEventButton user={user} event={event} />
-          )}
-          {user.role === "customer" && event.takeOrders && (
-            <OrderButton user={user} event={event} />
-          )}
-          <p>{moment(event.date).format("DD/MM/YYYY")}</p>
-          <p>{event.description}</p>
-          <Link to={`/orders/${eventId}`}>Order List</Link>
-        </>
-      )}
+      {pageLoading && <LoadingImg />}
+      {user && event && <EventCard user={user} eventInfo={event} />}
     </div>
   );
 }

@@ -14,7 +14,7 @@ import {
   MenuItem,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import AdbIcon from "@mui/icons-material/Adb";
+import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 
 function Navbar() {
   const { isLoggedIn, user, logoutUser } = useContext(AuthContext);
@@ -89,9 +89,10 @@ function Navbar() {
               )}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: "flex", mr: 1 }} />
+
+          <LocalFireDepartmentIcon sx={{ display: "flex", mr: 1 }} />
           <Typography
-            variant='h5'
+            variant='h6'
             noWrap
             component='a'
             href=''
@@ -104,7 +105,7 @@ function Navbar() {
               letterSpacing: ".3rem",
               color: "inherit",
             }}>
-            LOGO
+            EVENT HERO
           </Typography>
           {isLoggedIn && (
             <Box sx={{ flexGrow: 0 }}>

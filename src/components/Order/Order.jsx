@@ -3,16 +3,44 @@ import { useParams, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/auth.context";
 import QrCode from "./QrCode";
 import axios from "axios";
-import Button from "@mui/material/Button";
+import {
+  Card,
+  Typography,
+  Stack,
+  Paper,
+  Chip,
+  Box,
+  Button,
+  CardActions,
+  Divider,
+  Collapse,
+  IconButton,
+  CardContent,
+} from "@mui/material";
+import styled from "styled-components";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+const ExpandMore = styled(({ expand, ...other }) => {
+  return <IconButton {...other} />;
+})(({ expand }) => ({
+  transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
+  marginLeft: "auto",
+}));
 
 function Order() {
   const { orderId } = useParams();
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
   const [order, setOrder] = useState(null);
+
+  const [expanded, setExpanded] = useState(false);
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
 
   const errorHandle = (message) => {
     toast.error(message, {
@@ -80,65 +108,132 @@ function Order() {
   }, []);
 
   return (
-    <div>
+    <Card sx={{ my: 2 }}>
       <ToastContainer />
       {!order && <h2>Order Not Found</h2>}
       {order && (
-        <div style={{ backgroundColor: order.bgColor }}>
-          <h2>
+        <Stack
+          direction='column'
+          sx={{
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+          spacing={0.5}>
+          <Typography variant='h5' py={2} fontWeight={700}>
             Amount €{order.total.toFixed(2)} @ {order.event.name}
-          </h2>
-          <h3>
-            {order.status !== "completed" && user.role === "event-staff" && (
-              <p>Customer: {order.customer.name}</p>
+          </Typography>
+          {order.status !== "completed" && user.role === "event-staff" && (
+            <Typography variant='h5' py={2} fontWeight={700}>
+              Customer: {order.customer.name}
+            </Typography>
+          )}
+          {order.staff && user.role === "customer" && (
+            <Typography variant='h5' py={2} fontWeight={700}>
+              Staff: {order.staff.name}
+            </Typography>
+          )}
+          <Typography variant='h5' py={2} fontWeight={700}>
+            #{order._id.slice(-6)}{" "}
+            <Chip
+              label={order.status}
+              color={order.status === "completed" ? "success" : "warning"}
+            />{" "}
+          </Typography>
+
+          <Box
+            py={4}
+            sx={{
+              backgroundColor: order.bgColor,
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              borderRadius: "15px",
+            }}>
+            {order.status === "pending" && user.role === "customer" && (
+              <QrCode
+                value={order._id}
+                title={order.total.toFixed(2)}
+                bgColor={order.bgColor}
+              />
             )}
-            {order.staff && user.role === "customer" && (
-              <p>Staff: {order.staff.name}</p>
-            )}{" "}
-            Order Status: {order.status} | Order #{order._id.slice(-6)}{" "}
-            {order.status !== "completed" && user.role === "customer" && (
+          </Box>
+
+          {order.status !== "completed" && user.role === "customer" && (
+            <Button
+              sx={{
+                py: 2,
+                width: "75%",
+                marginTop: "1em",
+              }}
+              variant='contained'
+              color='error'
+              onClick={handleDelete}
+              startIcon={<DeleteIcon />}>
+              Delete
+            </Button>
+          )}
+          {order.status === "processing" &&
+            order.event.takeOrders &&
+            user.role === "event-staff" && (
               <Button
+                sx={{
+                  py: 2,
+                  width: "75%",
+                }}
                 variant='contained'
                 color='error'
-                onClick={handleDelete}
+                onClick={handleCharge}
                 startIcon={<DeleteIcon />}>
-                Delete
+                Charge
               </Button>
             )}
-            {order.status === "processing" &&
-              order.event.takeOrders &&
-              user.role === "event-staff" && (
-                <Button
-                  variant='contained'
-                  color='error'
-                  onClick={handleCharge}
-                  startIcon={<DeleteIcon />}>
-                  Charge
-                </Button>
-              )}
-          </h3>
-          {order.status === "pending" && user.role === "customer" && (
-            <QrCode
-              value={order._id}
-              title={order.total.toFixed(2)}
-              bgColor={order.bgColor}
-            />
-          )}
-          <h4>Check the details of your order bellow</h4>
-          {order.products.map((item) => {
-            return (
-              <div key={item._id}>
-                <p>
-                  Name: {item.name} | Qty: {item.quantity} | Price:{" "}
-                  {item.price.toFixed(2)} | Total:{" "}
-                  {(item.quantity * item.price).toFixed(2)}
-                </p>
-              </div>
-            );
-          })}
-        </div>
+          <Divider />
+          <CardActions onClick={handleExpandClick} disableSpacing>
+            <Typography variant='body1'>Order Details</Typography>
+            <ExpandMore
+              expand={expanded}
+              aria-expanded={expanded}
+              aria-label='show more'>
+              <ExpandMoreIcon />
+            </ExpandMore>
+          </CardActions>
+          <Collapse in={expanded} timeout='auto' unmountOnExit>
+            <CardContent>
+              {order.products.map((item) => {
+                return (
+                  <Paper key={order._id} elevation={20}>
+                    <Stack
+                      py={4}
+                      px={2}
+                      spacing={2}
+                      direction='row'
+                      justifyContent='space-between'
+                      alignItems='center'>
+                      <Stack>
+                        <Typography py={1} variant='body1' gutterBottom>
+                          Item: {item.name}
+                        </Typography>
+                        <Typography py={1} variant='body1' gutterBottom>
+                          Qty: {item.quantity}
+                        </Typography>
+                      </Stack>
+                      <Stack>
+                        <Typography py={1} variant='body1' gutterBottom>
+                          Total: € {(item.quantity * item.price).toFixed(2)}
+                        </Typography>
+                        <Typography py={1} variant='body1' gutterBottom>
+                          Price: € {item.price.toFixed(2)}
+                        </Typography>
+                      </Stack>
+                    </Stack>
+                  </Paper>
+                );
+              })}
+            </CardContent>
+          </Collapse>
+        </Stack>
       )}
-    </div>
+    </Card>
   );
 }
 

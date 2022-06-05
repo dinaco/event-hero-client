@@ -21,7 +21,7 @@ import {
 import IsAnon from "./components/auth/IsAnon";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import OrderList from "./components/pages/OrderList";
+import OrderList2 from "./components/pages/OrderList2";
 
 function App() {
   const errorHandle = (message) => {
@@ -93,7 +93,7 @@ function App() {
           path='/orders/:eventId'
           element={
             <IsPrivate>
-              <OrderList />
+              <OrderList2 />
             </IsPrivate>
           }
         />

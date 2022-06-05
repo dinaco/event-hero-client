@@ -3,25 +3,13 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
-import {
-  TextField,
-  Button,
-  InputAdornment,
-  IconButton,
-  Stack,
-  Typography,
-} from "@mui/material";
-import EuroIcon from "@mui/icons-material/Euro";
+import { Button, IconButton, Stack, Typography } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 
 function AddBalance() {
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState(10);
   const navigate = useNavigate();
-
-  const handleAmount = (e) => {
-    setAmount(e.target.value);
-  };
 
   const handleIncrement = () => {
     setAmount(amount + 10);
@@ -76,28 +64,9 @@ function AddBalance() {
             aria-label='Decrement'>
             <RemoveCircleIcon sx={{ width: 72, height: 72 }} />
           </IconButton>
-          <TextField
-            value={amount}
-            disabled
-            label='Amount'
-            onChange={handleAmount}
-            variant='outlined'
-            type='number'
-            sx={{ width: "50%", fontSize: 50 }}
-            InputLabelProps={{
-              style: { fontSize: 20 },
-              shrink: true,
-            }}
-            InputProps={{
-              min: 0,
-              style: { fontSize: 40 },
-              startAdornment: (
-                <InputAdornment position='start'>
-                  <EuroIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
+          <Typography px={4} variant='h2' component='div' gutterBottom>
+            € {amount}
+          </Typography>
           <IconButton
             onClick={handleIncrement}
             color='primary'

@@ -1,9 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import {
+  Switch,
+  FormControl,
+  FormGroup,
+  FormControlLabel,
+} from "@mui/material";
 
 function AttendEventButton({ user, event }) {
-  const [attending, setAttending] = useState(false);
+  const navigate = useNavigate();
+
+  const [attending, setAttending] = useState(
+    event.customers.some((customer) => customer._id === user._id)
+  );
   const changeAttendingStatus = () => {
     const body = { attending };
     const getToken = localStorage.getItem("authToken");
@@ -18,31 +28,36 @@ function AttendEventButton({ user, event }) {
         }
       )
       .then((response) => {
+        console.log("what");
         setAttending(!attending);
+        navigate(`/event/${event._id}`);
       })
       .catch((err) => console.log(err));
   };
-  useEffect(() => {
-    setAttending(event.customers.some((customer) => customer._id === user._id));
-  }, []);
 
-  const addEventButton = () => {
-    if (user) {
-      if (attending) {
-        return (
-          <button onClick={() => changeAttendingStatus()}>Remove Event</button>
-        );
-      } else {
-        return (
-          <button onClick={() => changeAttendingStatus()}>Attend Event</button>
-        );
-      }
-    } else {
-      return <Link to='/'>Login to Attend Event</Link>;
-    }
-  };
+  /*   const AttendEventToggle = () => {
+    setAttending(!attending);
+    changeAttendingStatus();
+  }; */
 
-  return <div>{addEventButton()}</div>;
+  return (
+    <FormControl component='fieldset'>
+      <FormGroup aria-label='position' row>
+        <FormControlLabel
+          value='top'
+          control={
+            <Switch
+              checked={attending}
+              onChange={changeAttendingStatus}
+              size='large'
+            />
+          }
+          label='Attend?'
+          labelPlacement='top'
+        />
+      </FormGroup>
+    </FormControl>
+  );
 }
 
 export default AttendEventButton;
