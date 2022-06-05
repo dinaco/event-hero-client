@@ -9,7 +9,7 @@ function Balance({ balance }) {
       <Typography
         sx={{
           display: "flex",
-          justifyContent: "space-between",
+          justifyContent: "center",
           alignItems: "center",
         }}
         px={4}
@@ -17,7 +17,7 @@ function Balance({ balance }) {
         variant='h5'
         component='div'
         gutterBottom>
-        Balance €{balance.toFixed(2)}
+        Balance € {balance.toFixed(2)}
         <Link to={`/add-balance`}>
           <AddCardIcon sx={{ fontSize: 35 }} />
         </Link>

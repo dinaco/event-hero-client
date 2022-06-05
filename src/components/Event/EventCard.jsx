@@ -72,7 +72,7 @@ function EventCard({ eventInfo, user }) {
               {eventInfo.name}
             </Typography>
           </Link>
-          {eventInfo.customers[0].profileImg && (
+          {eventInfo.customers[0] && eventInfo.customers[0].profileImg && (
             <AvatarGroup spacing='small' total={eventInfo.customers.length}>
               {eventInfo.customers.slice(0, 2).map((customer) => (
                 <Avatar

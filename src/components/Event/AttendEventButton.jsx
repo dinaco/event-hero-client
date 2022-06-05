@@ -28,7 +28,6 @@ function AttendEventButton({ user, event }) {
         }
       )
       .then((response) => {
-        console.log("what");
         setAttending(!attending);
         navigate(`/event/${event._id}`);
       })
