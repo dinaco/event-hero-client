@@ -1,17 +1,15 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import SignInOutContainer from "./components/containers";
 import Navbar from "./components/Navbar";
 import AdminPage from "./components/admin/AdminPage";
 import MyAccount from "./components/MyAccount/MyAccount";
-import NotFound from "./components/admin/NotFound";
+import NotFound from "./components/pages/NotFound";
 import Event from "./components/pages/Event";
 import Order from "./components/Order/Order";
 import OrderTake from "./components/Order/OrderTake";
 import AddBalance from "./components/MyAccount/AddBalance";
 import EventList from "./components/pages/EventList";
 import OrderForm from "./components/pages/OrderForm";
-import { io } from "socket.io-client";
 import {
   IsCustomer,
   IsStaff,
@@ -19,9 +17,11 @@ import {
   IsPrivate,
 } from "./components/auth/IsPrivate";
 import IsAnon from "./components/auth/IsAnon";
+/* import IsAdmin from "./components/auth/IsAdmin"; */
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import OrderList2 from "./components/pages/OrderList2";
+import TabbedAuthForm from "./components/pages/auth/TabbedAuthForm";
 
 function App() {
   const errorHandle = (message) => {
@@ -32,42 +32,26 @@ function App() {
       //hideProgressBar: true,
     });
   };
-
-  const socket = io("http://localhost:3000", {
-    reconnectionDelay: 1000,
-    reconnection: true,
-    reconnectionAttemps: 10,
-    transports: ["websocket"],
-    agent: false,
-    upgrade: false,
-    rejectUnauthorized: false,
-  });
   return (
     <div className='App'>
       <ToastContainer />
-      <Navbar />
       <Routes>
         <Route
           path='/'
           element={
             <IsAnon>
-              <SignInOutContainer errorHandle={errorHandle} />
+              <Navbar />
+              <TabbedAuthForm errorHandle={errorHandle} />
             </IsAnon>
           }
         />
-        <Route
-          path='/admin/*'
-          element={
-            <IsAdmin>
-              <AdminPage />
-            </IsAdmin>
-          }
-        />
+        <Route path='/admin/*' element={<AdminPage />} />
         <Route path='/events/' element={<EventList />} />
         <Route
           path='/my-account/'
           element={
             <IsPrivate>
+              <Navbar />
               <MyAccount />
             </IsPrivate>
           }
@@ -76,6 +60,7 @@ function App() {
           path='/add-balance/'
           element={
             <IsCustomer>
+              <Navbar />
               <AddBalance />
             </IsCustomer>
           }
@@ -85,6 +70,7 @@ function App() {
           path='/event/:eventId/order'
           element={
             <IsCustomer>
+              <Navbar />
               <OrderForm />
             </IsCustomer>
           }
@@ -93,6 +79,7 @@ function App() {
           path='/orders/:eventId'
           element={
             <IsPrivate>
+              <Navbar />
               <OrderList2 />
             </IsPrivate>
           }
@@ -101,6 +88,7 @@ function App() {
           path='/order/:orderId'
           element={
             <IsPrivate>
+              <Navbar />
               <Order />
             </IsPrivate>
           }
@@ -109,6 +97,7 @@ function App() {
           path='/order/process/:orderId'
           element={
             <IsStaff>
+              <Navbar />
               <OrderTake />
             </IsStaff>
           }

@@ -13,9 +13,16 @@ import {
   NumberField,
 } from "react-admin";
 
+//TODO: Qty Sold not working
+// its returning the same for all products
+
 function ProductsList() {
+  const productsFilters = [
+    <TextInput label='Search name' source='q' alwaysOn />,
+    // <TextInput label='Search Email' source='q' />,
+  ];
   return (
-    <List>
+    <List filters={productsFilters}>
       <Datagrid rowClick='edit'>
         <TextField source='name' />
         <TextField source='manufacturer' />
@@ -26,6 +33,7 @@ function ProductsList() {
         <BooleanField source='active' />
         <DateField source='createdAt' />
         <TextField source='event.name' label='Linked Events' />
+        <TextField source='event.products.length' label='Qty Sold' />
       </Datagrid>
     </List>
   );

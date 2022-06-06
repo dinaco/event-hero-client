@@ -16,7 +16,7 @@ function AddBalance() {
   };
 
   const handleDecrement = () => {
-    if (amount >= 10) {
+    if (amount > 10) {
       setAmount(amount - 10);
     }
   };

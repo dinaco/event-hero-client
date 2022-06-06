@@ -20,8 +20,10 @@ import {
 import styled from "styled-components";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DeleteIcon from "@mui/icons-material/Delete";
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import LoadingImg from "../LoadingImg";
 
 const ExpandMore = styled(({ expand, ...other }) => {
   return <IconButton {...other} />;
@@ -35,6 +37,7 @@ function Order() {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
   const [order, setOrder] = useState(null);
+  const [pageLoading, setPageLoading] = useState(true);
 
   const [expanded, setExpanded] = useState(false);
 
@@ -55,6 +58,7 @@ function Order() {
 
   const getOrderInfo = async () => {
     try {
+      setPageLoading(true);
       const response = await axios.get(
         `${process.env.REACT_APP_BASE_API_URL}/api/order/status/${orderId}`,
         {
@@ -64,13 +68,16 @@ function Order() {
         }
       );
       setOrder(response.data);
+      setPageLoading(false);
     } catch (err) {
       errorHandle(err.response.data.errorMessage);
+      setPageLoading(false);
     }
   };
 
   const handleDelete = async () => {
     try {
+      setPageLoading(true);
       await axios.delete(
         `${process.env.REACT_APP_BASE_API_URL}/api/order/delete/${orderId}`,
         {
@@ -79,15 +86,18 @@ function Order() {
           },
         }
       );
+      setPageLoading(false);
       navigate(`/event/${order.event._id}`);
     } catch (err) {
       errorHandle(err.response.data.errorMessage);
+      setPageLoading(false);
     }
   };
 
   const handleCharge = async () => {
     const body = {};
     try {
+      setPageLoading(true);
       await axios.put(
         `${process.env.REACT_APP_BASE_API_URL}/api/order/charge/${orderId}`,
         body,
@@ -97,9 +107,11 @@ function Order() {
           },
         }
       );
+      setPageLoading(false);
       navigate(`/orders/${order.event._id}`);
     } catch (err) {
       errorHandle(err.response.data.errorMessage);
+      setPageLoading(false);
     }
   };
 
@@ -108,9 +120,10 @@ function Order() {
   }, []);
 
   return (
-    <Card sx={{ my: 2 }}>
+    <Card sx={{ my: 2, px: 2 }}>
       <ToastContainer />
-      {!order && <h2>Order Not Found</h2>}
+      {!pageLoading && !order && <h2>Order Not Found</h2>}
+      {pageLoading && !order && <LoadingImg />}
       {order && (
         <Stack
           direction='column'
@@ -144,7 +157,7 @@ function Order() {
             py={4}
             sx={{
               backgroundColor: order.bgColor,
-              width: "100%",
+              width: "90%",
               display: "flex",
               justifyContent: "center",
               borderRadius: "15px",
@@ -183,7 +196,7 @@ function Order() {
                 variant='contained'
                 color='error'
                 onClick={handleCharge}
-                startIcon={<DeleteIcon />}>
+                startIcon={<AttachMoneyIcon />}>
                 Charge
               </Button>
             )}

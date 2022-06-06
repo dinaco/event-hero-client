@@ -3,6 +3,7 @@ import axios from "axios";
 import { TextField, Typography } from "@mui/material";
 import EventCard from "../Event/EventCard";
 import LoadingImg from "../LoadingImg";
+import Navbar from "../Navbar";
 
 function EventList() {
   const [events, setEvents] = useState([]);
@@ -30,6 +31,7 @@ function EventList() {
 
   return (
     <div>
+      <Navbar />
       <Typography variant='h5' gutterBottom component='div'>
         Check out our great events!
       </Typography>

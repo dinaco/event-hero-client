@@ -11,6 +11,7 @@ import {
   Button,
   Typography,
   Link,
+  Stack,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 const Login = ({ handleChange }) => {
@@ -25,7 +26,7 @@ const Login = ({ handleChange }) => {
   const headerStyle = { margin: 0 };
   const paperStyle = {
     padding: 20,
-    height: "73vh",
+    height: "50vh",
     width: 300,
     margin: "0 auto",
   };
@@ -60,23 +61,25 @@ const Login = ({ handleChange }) => {
           </Avatar>
           <h2 style={headerStyle}>Sign In</h2>
         </Grid>
-        <TextField
-          label='Email'
-          placeholder='Enter email'
-          value={email}
-          onChange={handleEmail}
-          fullWidth
-          required
-        />
-        <TextField
-          label='Password'
-          placeholder='Enter password'
-          type='password'
-          value={password}
-          onChange={handlePassword}
-          fullWidth
-          required
-        />
+        <Stack spacing={1}>
+          <TextField
+            label='Email'
+            placeholder='Enter email'
+            value={email}
+            onChange={handleEmail}
+            fullWidth
+            required
+          />
+          <TextField
+            label='Password'
+            placeholder='Enter password'
+            type='password'
+            value={password}
+            onChange={handlePassword}
+            fullWidth
+            required
+          />
+        </Stack>
         <Button
           type='submit'
           color='primary'

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Paper, Tabs, Tab, Typography, Box } from "@mui/material";
-import Login from "../pages/auth/Login";
-import Signup from "../pages/auth/SignUp";
-const SignInOutContainer = () => {
+import Login from "./Login";
+import Signup from "./SignUp";
+
+const TabbedAuthForm = () => {
   const [value, setValue] = useState(0);
   const handleChange = (e, newValue) => {
     e.preventDefault();
@@ -49,4 +50,4 @@ const SignInOutContainer = () => {
   );
 };
 
-export default SignInOutContainer;
+export default TabbedAuthForm;

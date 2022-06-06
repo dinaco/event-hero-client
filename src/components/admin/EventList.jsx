@@ -24,8 +24,9 @@ function EventList() {
         <TextField source='name' />
         <DateField source='date' />
         <BooleanField source='active' />
+        <BooleanField source='takeOrders' title='Taking Orders' />
         <DateField source='createdAt' />
-        <NumberField source='users.length' label='Attending Customers' />
+        <NumberField source='customers.length' label='Attending Customers' />
       </Datagrid>
     </List>
   );

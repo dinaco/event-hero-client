@@ -12,10 +12,7 @@ import {
   Button,
   Radio,
   RadioGroup,
-  FormControl,
-  FormLabel,
-  Checkbox,
-  FormControlLabel,
+  Stack,
 } from "@mui/material";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 const Signup = ({ handleChange }) => {
@@ -28,10 +25,15 @@ const Signup = ({ handleChange }) => {
     });
   };
 
-  const paperStyle = { padding: 20, width: 300, margin: "0 auto" };
   const headerStyle = { margin: 0 };
+  const paperStyle = {
+    padding: 20,
+    height: "50vh",
+    width: 300,
+    margin: "0 auto",
+  };
   const avatarStyle = { backgroundColor: "#1bbd7e" };
-  const marginTop = { marginTop: 5 };
+  const btnstyle = { margin: "8px 0" };
 
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -64,13 +66,14 @@ const Signup = ({ handleChange }) => {
           </Avatar>
           <h2 style={headerStyle}>Sign Up</h2>
         </Grid>
-        <form>
+        <Stack spacing={1}>
           <TextField
             fullWidth
             label='Email'
             value={email}
             onChange={handleEmail}
             placeholder='Enter your email'
+            required
           />
           <TextField
             fullWidth
@@ -78,6 +81,7 @@ const Signup = ({ handleChange }) => {
             value={name}
             onChange={handleName}
             placeholder='Enter your full name'
+            required
           />
           {/*           <FormControl component='fieldset' style={marginTop}>
             <FormLabel component='legend'>Gender</FormLabel>
@@ -100,25 +104,22 @@ const Signup = ({ handleChange }) => {
             value={password}
             onChange={handlePassword}
             placeholder='Enter your password'
+            required
           />
-          {/*           <TextField
-            fullWidth
-            label='Confirm Password'
-            placeholder='Confirm your password'
-          /> */}
-          <Button
-            type='submit'
-            fullWidth
-            onClick={handleSubmit}
-            variant='contained'
-            color='primary'>
-            Sign up
-          </Button>
-          <Typography>
-            Already a member?
-            <Link onClick={(e) => handleChange(e, 0)}>Login</Link>
-          </Typography>
-        </form>
+        </Stack>
+        <Button
+          type='submit'
+          style={btnstyle}
+          fullWidth
+          onClick={handleSubmit}
+          variant='contained'
+          color='primary'>
+          Sign up
+        </Button>
+        <Typography>
+          Already a member?
+          <Link onClick={(e) => handleChange(e, 0)}>Login</Link>
+        </Typography>
       </Paper>
     </Grid>
   );

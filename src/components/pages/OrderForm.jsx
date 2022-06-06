@@ -15,17 +15,30 @@ import Balance from "../MyAccount/Balance";
 import LoadingImg from "../LoadingImg";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import { io } from "socket.io-client";
 
 function OrderForm() {
+  const socket = io("http://localhost:3000", {
+    reconnectionDelay: 1000,
+    reconnection: true,
+    reconnectionAttemps: 10,
+    transports: ["websocket"],
+    agent: false,
+    upgrade: false,
+    rejectUnauthorized: false,
+  });
+
   const { eventId } = useParams();
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [inputFields, setInputFields] = useState([]);
   const [total, setTotal] = useState(0);
+  const [count, setCount] = useState(0);
   const arrInputs = [];
   const getToken = localStorage.getItem("authToken");
   const handleIncrement = (index) => {
     let data = [...inputFields];
+    socket.emit("chat message", Object.values(data[index])[0]);
     data[index][Object.keys(data[index])[0]] =
       Object.values(data[index])[0] + 1;
     setInputFields(data);
@@ -34,6 +47,7 @@ function OrderForm() {
       (e) => (newTotal += Number(Object.values(e)[0]) * Number(e.price))
     );
     setTotal(newTotal);
+    setCount(count + 1);
   };
 
   const handleDecrement = (index) => {
@@ -47,6 +61,7 @@ function OrderForm() {
         (e) => (newTotal += Number(Object.values(e)[0]) * Number(e.price))
       );
       setTotal(newTotal);
+      setCount(count - 1);
     }
   };
 
@@ -61,7 +76,7 @@ function OrderForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (total <= 0) {
+    if (count <= 0) {
       return errorHandle("Add items to your order");
     } else if (user.balance < total) {
       return errorHandle("Insuficient balance, add funds!");

@@ -13,10 +13,10 @@ import {
   FormTab,
   PasswordInput,
   ImageField,
-  SelectInput,
+  ReferenceArrayInput,
   required,
-  TabbedShowLayout,
-  ReferenceArrayField,
+  SelectArrayInput,
+  ReferenceInput,
   NumberInput,
   BooleanInput,
   ArrayInput,
@@ -29,6 +29,11 @@ function ProductEdit() {
     <Edit title='Products Info'>
       <SimpleForm label='products' path='products'>
         <TextInput source='name' validate={required()} />
+        <ImageField source='productImg' title='name' />
+        <ImageInput
+          source='productImg'
+          label='Change image'
+          accept='image/*'></ImageInput>
         <TextInput source='manufacturer' validate={required()} />
         <NumberInput
           source='price'
@@ -40,6 +45,9 @@ function ProductEdit() {
           defaultValue={true}
           validate={required()}
         />
+        <ReferenceArrayInput source='events' reference='event'>
+          <SelectArrayInput optionText='name' />
+        </ReferenceArrayInput>
         <TextInput source='event.name' validate={required()} />
       </SimpleForm>
     </Edit>
