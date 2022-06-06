@@ -9,9 +9,9 @@ import {
   required,
   BooleanInput,
 } from "react-admin";
-import StaffCreateEvents from "./event-admin/StaffCreateEvents";
+import StaffCreateEvents from "./StaffCreateEvents";
 
-function UserCreate() {
+function StaffCreate() {
   return (
     <Create>
       <SimpleForm>
@@ -24,9 +24,9 @@ function UserCreate() {
           validate={required()}
         />
         <SelectInput
+          validate={required()}
           source='role'
           choices={[
-            { id: "app-admin", name: "App Admin" },
             { id: "event-admin", name: "Event Admin" },
             { id: "event-staff", name: "Event Staff" },
           ]}
@@ -38,4 +38,4 @@ function UserCreate() {
   );
 }
 
-export default UserCreate;
+export default StaffCreate;

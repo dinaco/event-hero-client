@@ -5,12 +5,8 @@ import {
   TextInput,
   DateTimeInput,
   ImageInput,
-  ChipField,
-  SingleFieldList,
   ImageField,
   required,
-  ReferenceArrayField,
-  SelectInput,
   BooleanInput,
 } from "react-admin";
 

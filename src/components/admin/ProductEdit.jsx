@@ -1,28 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   Edit,
   SimpleForm,
   TextInput,
-  DateInput,
-  ReferenceManyField,
-  Datagrid,
   ImageInput,
-  ChipField,
-  SingleFieldList,
-  ArrayField,
-  FormTab,
-  PasswordInput,
   ImageField,
-  ReferenceArrayInput,
   required,
-  SelectArrayInput,
-  ReferenceInput,
   NumberInput,
   BooleanInput,
-  ArrayInput,
-  Tab,
-  SelectField,
-  SelectInput,
 } from "react-admin";
 import ProductEventsSelect from "./ProductEventsSelect";
 

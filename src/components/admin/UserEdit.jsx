@@ -4,12 +4,9 @@ import {
   SimpleForm,
   TextInput,
   DateInput,
-  ReferenceManyField,
-  Datagrid,
   ReferenceArrayField,
   ChipField,
   SingleFieldList,
-  ArrayField,
   ImageField,
   SelectInput,
   required,
@@ -28,7 +25,6 @@ function UserEdit() {
         <SelectInput
           source='role'
           choices={[
-            { id: "customer", name: "Customer" },
             { id: "app-admin", name: "App Admin" },
             { id: "event-admin", name: "Event Admin" },
             { id: "event-staff", name: "Event Staff" },

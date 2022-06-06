@@ -5,15 +5,12 @@ import {
   TextField,
   EmailField,
   TextInput,
-  ImageField,
   BooleanField,
   ChipField,
   NumberField,
   useListContext,
-  FieldProps,
-  useRecordContext,
 } from "react-admin";
-import { Avatar, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 
 function UserList() {
   const userFilters = [

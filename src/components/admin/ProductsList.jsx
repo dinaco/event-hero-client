@@ -1,14 +1,10 @@
 import React from "react";
 import {
   List,
-  ReferenceField,
   Datagrid,
   TextInput,
   TextField,
   DateField,
-  ArrayField,
-  SingleFieldList,
-  ChipField,
   BooleanField,
   NumberField,
 } from "react-admin";

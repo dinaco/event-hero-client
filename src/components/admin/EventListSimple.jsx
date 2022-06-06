@@ -9,7 +9,7 @@ import {
   NumberField,
 } from "react-admin";
 
-function EventList() {
+function EventListSimple() {
   const eventFilters = [
     <TextInput label='Search name' source='q' alwaysOn />,
     // <TextInput label='Search Email' source='q' />,
@@ -28,4 +28,4 @@ function EventList() {
   );
 }
 
-export default EventList;
+export default EventListSimple;
