@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
-  Edit,
+  Create,
   SimpleForm,
   TextInput,
   DateInput,
@@ -22,13 +22,11 @@ import {
   ArrayInput,
   Tab,
   SelectField,
-  SelectInput,
 } from "react-admin";
-import ProductEventsSelect from "./ProductEventsSelect";
 
-function ProductEdit() {
+function ProductCreate() {
   return (
-    <Edit title='Products Info'>
+    <Create title='Products Info'>
       <SimpleForm label='products' path='products'>
         <TextInput source='name' validate={required()} />
         <ImageField source='productImg' title='name' />
@@ -47,11 +45,10 @@ function ProductEdit() {
           defaultValue={true}
           validate={required()}
         />
-        <ProductEventsSelect source='event' />
         <TextInput source='event.name' validate={required()} />
       </SimpleForm>
-    </Edit>
+    </Create>
   );
 }
 
-export default ProductEdit;
+export default ProductCreate;

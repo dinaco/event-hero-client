@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Admin, Resource, ListGuesser, fetchUtils } from "react-admin";
+import React, { useState, useEffect } from "react";
+import { Admin, Resource, fetchUtils, ListGuesser } from "react-admin";
 import UserList from "./UserList";
 import Dashboard from "./Dashboard";
 import NotFound from "./NotFound";
@@ -12,11 +12,10 @@ import EventEdit from "./EventEdit";
 import EventCreate from "./EventCreate";
 import ProductsList from "./ProductsList";
 import ProductEdit from "./ProductEdit";
-import { AuthContext } from "../../context/auth.context";
+import ProductCreate from "./ProductCreate";
+import StaffList from "./event-admin/StaffList";
 
 function AdminPage() {
-  const { user } = useContext(AuthContext);
-  console.log(user);
   const [dataProviderInfo, setdataProviderInfo] = useState(null);
   useEffect(() => {
     const httpClient = (url, options = {}) => {
@@ -69,12 +68,23 @@ function AdminPage() {
             create={UserCreate}
           />
           <Resource
+            name='staff'
+            options={{ label: "Staff" }}
+            icon={SupervisedUserCircleRounded}
+            list={StaffList}
+          />
+          <Resource
             name='events'
             list={EventList}
             edit={EventEdit}
             create={EventCreate}
           />
-          <Resource name='products' list={ProductsList} edit={ProductEdit} />
+          <Resource
+            name='products'
+            list={ProductsList}
+            create={ProductCreate}
+            edit={ProductEdit}
+          />
         </Admin>
       )}
     </div>
