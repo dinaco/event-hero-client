@@ -147,9 +147,7 @@ function Order() {
               <StepLabel>Order</StepLabel>
             </Step>
             <Step>
-              <StepLabel>
-                {user.role === "customer" ? "Find Staff" : "Deliver Goods"}
-              </StepLabel>
+              <StepLabel>Find Staff (Scan QRcode)</StepLabel>
             </Step>
             <Step>
               <StepLabel>Processing Order</StepLabel>
