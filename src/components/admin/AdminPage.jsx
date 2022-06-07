@@ -5,6 +5,8 @@ import UserList from "./UserList";
 import Dashboard from "./Dashboard";
 import NotFound from "./NotFound";
 import { SupervisedUserCircleRounded } from "@mui/icons-material";
+import FastfoodIcon from "@mui/icons-material/Fastfood";
+import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 import jsonServerProvider from "ra-data-json-server";
 import UserCreate from "./UserCreate";
 import UserEdit from "./UserEdit";
@@ -19,11 +21,12 @@ import ProductCreate from "./ProductCreate";
 import StaffList from "./event-admin/StaffList";
 import StaffCreate from "./event-admin/StaffCreate";
 import StaffEdit from "./event-admin/StaffEdit";
+import { Typography } from "@mui/material";
 
 function AdminPage() {
   const [dataProviderInfo, setdataProviderInfo] = useState(null);
 
-  const { user } = useContext(AuthContext);
+  const { user, logoutUser } = useContext(AuthContext);
 
   useEffect(() => {
     const httpClient = (url, options = {}) => {
@@ -77,18 +80,21 @@ function AdminPage() {
               create={UserCreate}
             />
           )}
-          <Resource
-            name='staff'
-            options={{ label: "Staff" }}
-            icon={SupervisedUserCircleRounded}
-            list={StaffList}
-            edit={StaffEdit}
-            create={StaffCreate}
-          />
+          {user && user.role === "event-admin" && (
+            <Resource
+              name='staff'
+              options={{ label: "Staff" }}
+              icon={SupervisedUserCircleRounded}
+              list={StaffList}
+              edit={StaffEdit}
+              create={StaffCreate}
+            />
+          )}
           {user && user.role === "app-admin" && (
             <Resource
               name='events'
               list={EventList}
+              icon={LocalFireDepartmentIcon}
               edit={EventEdit}
               create={EventCreate}
             />
@@ -97,18 +103,23 @@ function AdminPage() {
             <Resource
               name='events-role'
               options={{ label: "Events" }}
+              icon={LocalFireDepartmentIcon}
               list={EventListSimple}
               edit={EventEditSimple}
             />
           )}
           <Resource
             name='products'
+            icon={FastfoodIcon}
             list={ProductsList}
             create={ProductCreate}
             edit={ProductEdit}
           />
         </Admin>
       )}
+      <Typography component='a' onClick={logoutUser} textAlign='center'>
+        Logout
+      </Typography>
     </div>
   );
 }

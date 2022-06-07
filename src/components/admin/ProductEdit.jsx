@@ -8,6 +8,7 @@ import {
   required,
   NumberInput,
   BooleanInput,
+  ChipField,
 } from "react-admin";
 import ProductEventsSelect from "./ProductEventsSelect";
 
@@ -33,7 +34,7 @@ function ProductEdit() {
           validate={required()}
         />
         <ProductEventsSelect source='event' />
-        <TextInput source='event.name' validate={required()} />
+        <ChipField source='event.name' validate={required()} />
       </SimpleForm>
     </Edit>
   );

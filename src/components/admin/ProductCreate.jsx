@@ -9,6 +9,7 @@ import {
   NumberInput,
   BooleanInput,
 } from "react-admin";
+import ProductEventsSelectCreate from "./event-admin/ProductEventsSelectCreate";
 
 function ProductCreate() {
   return (
@@ -31,7 +32,7 @@ function ProductCreate() {
           defaultValue={true}
           validate={required()}
         />
-        <TextInput source='event.name' validate={required()} />
+        <ProductEventsSelectCreate />
       </SimpleForm>
     </Create>
   );

@@ -24,7 +24,7 @@ function UserList() {
       <div style={{ width: 200, margin: "1em" }}>
         <Typography variant='h6'>User</Typography>
         <Typography variant='body2'>
-          Total views: {data.reduce((sum, amount) => sum + amount.balance, 0)}
+          Total Balance: {data.reduce((sum, amount) => sum + amount.balance, 0)}
         </Typography>
       </div>
     );
