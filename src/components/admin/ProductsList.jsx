@@ -9,13 +9,9 @@ import {
   NumberField,
 } from "react-admin";
 
-//TODO: Qty Sold not working
-// its returning the same for all products
-
 function ProductsList() {
   const productsFilters = [
     <TextInput label='Search name' source='q' alwaysOn />,
-    // <TextInput label='Search Email' source='q' />,
   ];
   return (
     <List filters={productsFilters}>

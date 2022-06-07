@@ -14,7 +14,7 @@ import ProductEventsSelect from "./ProductEventsSelect";
 
 function ProductEdit() {
   return (
-    <Edit title='Products Info'>
+    <Edit title='Product Info'>
       <SimpleForm label='products' path='products'>
         <TextInput source='name' validate={required()} />
         <ImageField source='productImg' title='name' />

@@ -8,7 +8,7 @@ import {
   BooleanField,
   ChipField,
   NumberField,
-  useListContext,
+  useGetList,
 } from "react-admin";
 import { Typography } from "@mui/material";
 
@@ -18,13 +18,34 @@ function UserList() {
     // <TextInput label='Search Email' source='q' />,
   ];
   const Aside = () => {
-    const { data, isLoading } = useListContext();
+    // const { data, isLoading } = useListContext();
+    const { data, isLoading } = useGetList("users");
     if (isLoading) return null;
+
     return (
       <div style={{ width: 200, margin: "1em" }}>
-        <Typography variant='h6'>User</Typography>
-        <Typography variant='body2'>
-          Total Balance: {data.reduce((sum, amount) => sum + amount.balance, 0)}
+        <Typography variant='h6' gutterBottom>
+          User's Summary
+        </Typography>
+        <Typography variant='body1' gutterBottom>
+          Total Balance: €{" "}
+          {data.reduce((sum, amount) => sum + amount.balance, 0)}
+        </Typography>
+        <Typography variant='body2' gutterBottom>
+          Total Customers:{" "}
+          {data.filter((user) => user.role === "customer").length}
+        </Typography>
+        <Typography variant='body2' gutterBottom>
+          Total Staff:{" "}
+          {data.filter((user) => user.role === "event-staff").length}
+        </Typography>
+        <Typography variant='body2' gutterBottom>
+          Total Event Admin:{" "}
+          {data.filter((user) => user.role === "event-admin").length}
+        </Typography>
+        <Typography variant='body2' gutterBottom>
+          Total App Admin:{" "}
+          {data.filter((user) => user.role === "app-admin").length}
         </Typography>
       </div>
     );

@@ -16,7 +16,7 @@ import {
 
 function UserEdit() {
   return (
-    <Edit>
+    <Edit title='User Info'>
       <SimpleForm>
         <TextInput disabled label='Id' source='id' />
         <ImageField source='profileImg' title='name' />

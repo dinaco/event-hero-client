@@ -62,7 +62,7 @@ const CustomAppBar = (props) => {
       <Box mx={2} sx={{ flexGrow: 0 }}>
         <Tooltip title='Open settings'>
           <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-            <Avatar alt={user.name} src={user.profileImg} />
+            {user && <Avatar alt={user.name} src={user.profileImg} />}
           </IconButton>
         </Tooltip>
         <Menu

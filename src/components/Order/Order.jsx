@@ -57,6 +57,14 @@ function Order() {
       //hideProgressBar: true,
     });
   };
+  const successHandle = (message) => {
+    toast.success(message, {
+      position: "top-left",
+      autoClose: 1000,
+      closeOnClick: true,
+      //hideProgressBar: true,
+    });
+  };
 
   const getToken = localStorage.getItem("authToken");
 
@@ -117,6 +125,7 @@ function Order() {
           },
         }
       );
+      successHandle("Order completed!");
       setPageLoading(false);
       navigate(`/orders/${order.event._id}`);
     } catch (err) {
