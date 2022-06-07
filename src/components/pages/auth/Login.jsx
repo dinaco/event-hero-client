@@ -90,7 +90,7 @@ const Login = ({ handleChange }) => {
           Sign in
         </Button>
         <Typography>
-          Do you have an account ?
+          Do you have an account?{" "}
           <Link onClick={(e) => handleChange(e, 1)}>Sign Up</Link>
         </Typography>
       </Paper>

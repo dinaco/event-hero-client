@@ -23,11 +23,6 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import EventActions from "./EventActions";
 
-const InputTag = styled.input`
-  border-radius: 10px;
-  height: 20px;
-`;
-
 const StyledLocation = styled(Typography)`
   && {
     display: flex;

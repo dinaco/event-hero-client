@@ -10,8 +10,6 @@ import {
   Link,
   TextField,
   Button,
-  Radio,
-  RadioGroup,
   Stack,
 } from "@mui/material";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
@@ -69,34 +67,20 @@ const Signup = ({ handleChange }) => {
         <Stack spacing={1}>
           <TextField
             fullWidth
-            label='Email'
-            value={email}
-            onChange={handleEmail}
-            placeholder='Enter your email'
-            required
-          />
-          <TextField
-            fullWidth
             label='Full Name'
             value={name}
             onChange={handleName}
             placeholder='Enter your full name'
             required
           />
-          {/*           <FormControl component='fieldset' style={marginTop}>
-            <FormLabel component='legend'>Gender</FormLabel>
-            <RadioGroup
-              aria-label='gender'
-              name='gender'
-              style={{ display: "initial" }}>
-              <FormControlLabel
-                value='female'
-                control={<Radio />}
-                label='Female'
-              />
-              <FormControlLabel value='male' control={<Radio />} label='Male' />
-            </RadioGroup>
-          </FormControl> */}
+          <TextField
+            fullWidth
+            label='Email'
+            value={email}
+            onChange={handleEmail}
+            placeholder='Enter your email'
+            required
+          />
           <TextField
             fullWidth
             label='Password'
@@ -117,7 +101,7 @@ const Signup = ({ handleChange }) => {
           Sign up
         </Button>
         <Typography>
-          Already a member?
+          Already a member?{" "}
           <Link onClick={(e) => handleChange(e, 0)}>Login</Link>
         </Typography>
       </Paper>

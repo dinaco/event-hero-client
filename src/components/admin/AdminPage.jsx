@@ -21,12 +21,12 @@ import ProductCreate from "./ProductCreate";
 import StaffList from "./event-admin/StaffList";
 import StaffCreate from "./event-admin/StaffCreate";
 import StaffEdit from "./event-admin/StaffEdit";
-import { Typography } from "@mui/material";
+import CustomLayout from "./CustomLayout";
 
 function AdminPage() {
   const [dataProviderInfo, setdataProviderInfo] = useState(null);
 
-  const { user, logoutUser } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     const httpClient = (url, options = {}) => {
@@ -65,9 +65,9 @@ function AdminPage() {
     <div>
       {dataProviderInfo && (
         <Admin
+          layout={CustomLayout}
           catchAll={NotFound}
           dashboard={Dashboard}
-          title='Event Name!'
           basename='/admin'
           dataProvider={dataProviderInfo}>
           {user && user.role === "app-admin" && (
@@ -117,9 +117,6 @@ function AdminPage() {
           />
         </Admin>
       )}
-      <Typography component='a' onClick={logoutUser} textAlign='center'>
-        Logout
-      </Typography>
     </div>
   );
 }

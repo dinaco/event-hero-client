@@ -63,22 +63,18 @@ function Navbar() {
                 vertical: "top",
                 horizontal: "left",
               }}
-              open={Boolean(anchorElNav)}
+              open={anchorElNav}
               onClose={handleCloseNavMenu}
               sx={{
                 display: "block",
               }}>
-              {isLoggedIn && (
-                <div>
-                  {user.role === "customer" && (
-                    <MenuItem onClick={handleCloseNavMenu}>
-                      <Link to='/events'>
-                        <Typography textAlign='center'>All Events</Typography>
-                      </Link>
-                    </MenuItem>
-                  )}
-                </div>
-              )}
+              <div>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Link to='/events'>
+                    <Typography textAlign='center'>All Events</Typography>
+                  </Link>
+                </MenuItem>
+              </div>
 
               {!isLoggedIn && (
                 <MenuItem onClick={handleCloseNavMenu}>
@@ -125,7 +121,7 @@ function Navbar() {
                   vertical: "top",
                   horizontal: "right",
                 }}
-                open={Boolean(anchorElUser)}
+                open={anchorElUser}
                 onClose={handleCloseUserMenu}>
                 {isLoggedIn && (
                   <MenuItem onClick={handleCloseUserMenu}>

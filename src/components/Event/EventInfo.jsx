@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../../context/auth.context";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
-import AttendEventButton from "./AttendEventButton";
-import OrderButton from "../Order/OrderButton";
 import EventCard from "./EventCard";
 import LoadingImg from "../LoadingImg";
 
@@ -31,7 +29,7 @@ function EventInfo() {
   return (
     <div>
       {pageLoading && <LoadingImg />}
-      {user && event && <EventCard user={user} eventInfo={event} />}
+      {event && <EventCard user={user} eventInfo={event} />}
     </div>
   );
 }
