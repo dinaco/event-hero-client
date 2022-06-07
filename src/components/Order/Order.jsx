@@ -16,6 +16,9 @@ import {
   Collapse,
   IconButton,
   CardContent,
+  Stepper,
+  Step,
+  StepLabel,
 } from "@mui/material";
 import styled from "styled-components";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -38,6 +41,7 @@ function Order() {
   const { user } = useContext(AuthContext);
   const [order, setOrder] = useState(null);
   const [pageLoading, setPageLoading] = useState(true);
+  const [activeStep, setActiveStep] = useState(1);
 
   const [expanded, setExpanded] = useState(false);
 
@@ -68,6 +72,12 @@ function Order() {
         }
       );
       setOrder(response.data);
+      if (response.data.status === "processing") {
+        setActiveStep(2);
+      } else if (response.data.status === "completed") {
+        setActiveStep(4);
+      }
+
       setPageLoading(false);
     } catch (err) {
       errorHandle(err.response.data.errorMessage);
@@ -132,6 +142,22 @@ function Order() {
             alignItems: "center",
           }}
           spacing={0.5}>
+          <Stepper activeStep={activeStep} sx={{ pt: 2 }} alternativeLabel>
+            <Step>
+              <StepLabel>Order</StepLabel>
+            </Step>
+            <Step>
+              <StepLabel>
+                {user.role === "customer" ? "Find Staff" : "Deliver Goods"}
+              </StepLabel>
+            </Step>
+            <Step>
+              <StepLabel>Processing Order</StepLabel>
+            </Step>
+            <Step>
+              <StepLabel>Paid</StepLabel>
+            </Step>
+          </Stepper>
           <Typography variant='h5' py={2} fontWeight={700}>
             Amount €{order.total.toFixed(2)} @ {order.event.name}
           </Typography>
