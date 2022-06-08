@@ -75,20 +75,18 @@ function Navbar() {
               sx={{
                 display: "block",
               }}>
-              <div>
+              <Link to='/events'>
                 <MenuItem onClick={handleCloseNavMenu}>
-                  <Link to='/events'>
-                    <Typography textAlign='center'>All Events</Typography>
-                  </Link>
+                  <Typography textAlign='center'>All Events</Typography>
                 </MenuItem>
-              </div>
+              </Link>
 
               {!isLoggedIn && (
-                <MenuItem onClick={handleCloseNavMenu}>
-                  <Link to='/'>
+                <Link to='/'>
+                  <MenuItem onClick={handleCloseNavMenu}>
                     <Typography textAlign='center'>Login</Typography>
-                  </Link>
-                </MenuItem>
+                  </MenuItem>
+                </Link>
               )}
             </Menu>
           </Box>
@@ -132,24 +130,24 @@ function Navbar() {
                 onClose={handleCloseUserMenu}>
                 {isLoggedIn && (
                   <>
-                    <MenuItem onClick={handleCloseUserMenu}>
-                      <Link to='/my-account'>
+                    <Link to='/my-account'>
+                      <MenuItem onClick={handleCloseUserMenu}>
                         <Typography textAlign='center'>My Account</Typography>
-                      </Link>
-                    </MenuItem>
-                    <MenuItem onClick={handleCloseUserMenu}>
-                      <Link to='/profile'>
+                      </MenuItem>
+                    </Link>
+                    <Link to='/profile'>
+                      <MenuItem onClick={handleCloseUserMenu}>
                         <Typography textAlign='center'>Profile</Typography>
-                      </Link>
-                    </MenuItem>
+                      </MenuItem>
+                    </Link>
                   </>
                 )}
                 {isLoggedIn && user.role === "customer" && (
-                  <MenuItem onClick={handleCloseUserMenu}>
-                    <Link to='/add-balance'>
+                  <Link to='/add-balance'>
+                    <MenuItem onClick={handleCloseUserMenu}>
                       <Typography textAlign='center'>Add Balance</Typography>
-                    </Link>
-                  </MenuItem>
+                    </MenuItem>
+                  </Link>
                 )}
                 <MenuItem onClick={customLogoutUser}>
                   <Typography textAlign='center'>Logout</Typography>

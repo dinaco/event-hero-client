@@ -15,19 +15,8 @@ import Balance from "../MyAccount/Balance";
 import LoadingImg from "../LoadingImg";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
-import { io } from "socket.io-client";
 
 function OrderForm() {
-  const socket = io("http://localhost:3000", {
-    reconnectionDelay: 1000,
-    reconnection: true,
-    reconnectionAttemps: 10,
-    transports: ["websocket"],
-    agent: false,
-    upgrade: false,
-    rejectUnauthorized: false,
-  });
-
   const { eventId } = useParams();
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
@@ -38,7 +27,6 @@ function OrderForm() {
   const getToken = localStorage.getItem("authToken");
   const handleIncrement = (index) => {
     let data = [...inputFields];
-    socket.emit("chat message", Object.values(data[index])[0]);
     data[index][Object.keys(data[index])[0]] =
       Object.values(data[index])[0] + 1;
     setInputFields(data);

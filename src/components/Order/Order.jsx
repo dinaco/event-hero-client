@@ -27,6 +27,7 @@ import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import LoadingImg from "../LoadingImg";
+import { SocketIoContext } from "../../context/socket.context";
 
 const ExpandMore = styled(({ expand, ...other }) => {
   return <IconButton {...other} />;
@@ -125,7 +126,7 @@ function Order() {
           },
         }
       );
-      successHandle("Order completed!");
+      successHandle("Order completed! Keep");
       setPageLoading(false);
       navigate(`/orders/${order.event._id}`);
     } catch (err) {

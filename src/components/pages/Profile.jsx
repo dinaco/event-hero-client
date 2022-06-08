@@ -17,7 +17,8 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import EditIcon from "@mui/icons-material/Edit";
-import { deepOrange } from "@mui/material/colors";
+import { blue } from "@mui/material/colors";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const SmallAvatar = styled(Avatar)(() => ({
   width: 22,
@@ -131,10 +132,8 @@ function Profile() {
                 onClick={handleProfileImg}
                 anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
                 badgeContent={
-                  <SmallAvatar
-                    sx={{ bgcolor: deepOrange[500] }}
-                    alt='edit icon'>
-                    <EditIcon />
+                  <SmallAvatar sx={{ bgcolor: blue[500] }} alt='edit icon'>
+                    <EditIcon sx={{ width: 16, height: 16 }} />
                   </SmallAvatar>
                 }>
                 <Avatar
@@ -177,12 +176,13 @@ function Profile() {
                 placeholder='Enter your password'
                 required
               />
-              <Stack spacing={4}>
+              <Stack pt={2} spacing={4}>
                 <Button
                   type='submit'
                   fullWidth
                   onClick={handleSubmit}
                   variant='contained'
+                  startIcon={<EditIcon />}
                   color='primary'>
                   Edit
                 </Button>
@@ -190,6 +190,7 @@ function Profile() {
                   type='submit'
                   fullWidth
                   onClick={handleDelete}
+                  startIcon={<DeleteIcon />}
                   variant='contained'
                   color='error'>
                   Delete
