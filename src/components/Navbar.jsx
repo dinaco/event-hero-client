@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import React, { useState, useContext } from "react";
 import { AuthContext } from "../context/auth.context";
 import {
@@ -20,6 +20,13 @@ function Navbar() {
   const { isLoggedIn, user, logoutUser } = useContext(AuthContext);
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
+
+  const navigate = useNavigate();
+
+  const customLogoutUser = () => {
+    logoutUser();
+    navigate("/");
+  };
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -124,11 +131,18 @@ function Navbar() {
                 open={anchorElUser}
                 onClose={handleCloseUserMenu}>
                 {isLoggedIn && (
-                  <MenuItem onClick={handleCloseUserMenu}>
-                    <Link to='/my-account'>
-                      <Typography textAlign='center'>My Account</Typography>
-                    </Link>
-                  </MenuItem>
+                  <>
+                    <MenuItem onClick={handleCloseUserMenu}>
+                      <Link to='/my-account'>
+                        <Typography textAlign='center'>My Account</Typography>
+                      </Link>
+                    </MenuItem>
+                    <MenuItem onClick={handleCloseUserMenu}>
+                      <Link to='/profile'>
+                        <Typography textAlign='center'>Profile</Typography>
+                      </Link>
+                    </MenuItem>
+                  </>
                 )}
                 {isLoggedIn && user.role === "customer" && (
                   <MenuItem onClick={handleCloseUserMenu}>
@@ -137,7 +151,7 @@ function Navbar() {
                     </Link>
                   </MenuItem>
                 )}
-                <MenuItem onClick={logoutUser}>
+                <MenuItem onClick={customLogoutUser}>
                   <Typography textAlign='center'>Logout</Typography>
                 </MenuItem>
               </Menu>

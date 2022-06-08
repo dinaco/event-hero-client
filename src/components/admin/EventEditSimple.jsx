@@ -2,7 +2,6 @@ import React from "react";
 import {
   Edit,
   SimpleForm,
-  required,
   BooleanInput,
   SaveButton,
   Toolbar,
@@ -18,7 +17,7 @@ function EventEditSimple() {
   return (
     <Edit title='Event Info'>
       <SimpleForm toolbar={<UserEditToolbar />}>
-        <BooleanInput source='takeOrders' validate={required()} />
+        <BooleanInput source='takeOrders' />
       </SimpleForm>
     </Edit>
   );

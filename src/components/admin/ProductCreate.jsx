@@ -4,34 +4,32 @@ import {
   SimpleForm,
   TextInput,
   ImageInput,
-  ImageField,
   required,
   NumberInput,
   BooleanInput,
+  minValue,
 } from "react-admin";
 import ProductEventsSelectCreate from "./event-admin/ProductEventsSelectCreate";
 
 function ProductCreate() {
+  const validatePrice = [required(), minValue(0)];
+
   return (
     <Create title='Products Info'>
       <SimpleForm label='products' path='products'>
         <TextInput source='name' validate={required()} />
-        <ImageField source='productImg' title='name' />
         <ImageInput
           source='productImg'
-          label='Change image'
+          label='Product image'
           accept='image/*'></ImageInput>
         <TextInput source='manufacturer' validate={required()} />
         <NumberInput
           source='price'
+          min={0}
           options={{ style: "currency", currency: "EUR" }}
-          validate={required()}
+          validate={validatePrice}
         />
-        <BooleanInput
-          source='active'
-          defaultValue={true}
-          validate={required()}
-        />
+        <BooleanInput source='active' defaultValue={true} />
         <ProductEventsSelectCreate />
       </SimpleForm>
     </Create>

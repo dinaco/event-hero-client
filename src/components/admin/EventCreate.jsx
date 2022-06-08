@@ -5,7 +5,6 @@ import {
   TextInput,
   DateTimeInput,
   ImageInput,
-  ImageField,
   required,
   BooleanInput,
 } from "react-admin";
@@ -14,7 +13,6 @@ function EventCreate() {
   return (
     <Create>
       <SimpleForm path='events'>
-        <ImageField source='splashImg' title='name' />
         <ImageInput
           source='splashImg'
           label='Change image'

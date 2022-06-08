@@ -4,27 +4,36 @@ import {
   SimpleForm,
   TextInput,
   PasswordInput,
-  ImageField,
   SelectInput,
   required,
   BooleanInput,
+  ImageInput,
+  minLength,
+  email,
 } from "react-admin";
 import StaffCreateEvents from "./event-admin/StaffCreateEvents";
 
 function UserCreate() {
+  const validateEmail = [required(), email()];
+  const validatePassword = [required(), minLength(8)];
+
   return (
     <Create>
       <SimpleForm>
-        <ImageField source='profileImg' title='profile image' />
+        <ImageInput
+          source='profileImg'
+          label='User image'
+          accept='image/*'></ImageInput>
         <TextInput source='name' validate={required()} />
-        <TextInput source='email' validate={required()} />
+        <TextInput source='email' validate={validateEmail} />
         <PasswordInput
           source='hashedPassword'
           label='Password'
-          validate={required()}
+          validate={validatePassword}
         />
         <SelectInput
           source='role'
+          validate={required()}
           choices={[
             { id: "app-admin", name: "App Admin" },
             { id: "event-admin", name: "Event Admin" },
@@ -32,7 +41,7 @@ function UserCreate() {
           ]}
         />
         <StaffCreateEvents />
-        <BooleanInput source='active' validate={required()} />
+        <BooleanInput source='active' />
       </SimpleForm>
     </Create>
   );

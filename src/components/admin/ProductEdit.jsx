@@ -4,20 +4,36 @@ import {
   SimpleForm,
   TextInput,
   ImageInput,
-  ImageField,
+  useEditContext,
   required,
   NumberInput,
   BooleanInput,
   ChipField,
+  minValue,
 } from "react-admin";
 import ProductEventsSelect from "./ProductEventsSelect";
+import { Avatar } from "@mui/material";
 
 function ProductEdit() {
+  const validatePrice = [required(), minValue(0)];
+
+  const StyledAvatar = () => {
+    const { record, isLoading } = useEditContext();
+    if (isLoading) return null;
+    return (
+      <Avatar
+        sx={{ width: 112, height: 112 }}
+        src={record.productImg}
+        alt={record.name}
+      />
+    );
+  };
+
   return (
     <Edit title='Product Info'>
       <SimpleForm label='products' path='products'>
         <TextInput source='name' validate={required()} />
-        <ImageField source='productImg' title='name' />
+        <StyledAvatar />
         <ImageInput
           source='productImg'
           label='Change image'
@@ -25,16 +41,13 @@ function ProductEdit() {
         <TextInput source='manufacturer' validate={required()} />
         <NumberInput
           source='price'
+          min={0}
           options={{ style: "currency", currency: "EUR" }}
-          validate={required()}
+          validate={validatePrice}
         />
-        <BooleanInput
-          source='active'
-          defaultValue={true}
-          validate={required()}
-        />
+        <BooleanInput source='active' />
         <ProductEventsSelect source='event' />
-        <ChipField source='event.name' validate={required()} />
+        <ChipField source='event.name' />
       </SimpleForm>
     </Edit>
   );

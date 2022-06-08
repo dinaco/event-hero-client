@@ -3,8 +3,8 @@ import moment from "moment";
 import { Paper, Typography, Stack } from "@mui/material";
 import LoadingImg from "../LoadingImg";
 import axios from "axios";
-import Balance from "./Balance";
-import TabEvents from "./TabEvents";
+import Balance from "../MyAccount/Balance";
+import TabEvents from "../MyAccount/TabEvents";
 
 function MyAccount() {
   let today = moment(new Date()).format();

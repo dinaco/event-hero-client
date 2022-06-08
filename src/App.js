@@ -2,12 +2,13 @@ import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import AdminPage from "./components/admin/AdminPage";
-import MyAccount from "./components/MyAccount/MyAccount";
+import MyAccount from "./components/pages/MyAccount";
 import NotFound from "./components/pages/NotFound";
 import Event from "./components/pages/Event";
 import Order from "./components/Order/Order";
 import OrderTake from "./components/Order/OrderTake";
 import AddBalance from "./components/MyAccount/AddBalance";
+import Profile from "./components/pages/Profile";
 import EventList from "./components/pages/EventList";
 import OrderForm from "./components/pages/OrderForm";
 import {
@@ -20,7 +21,7 @@ import IsAnon from "./components/auth/IsAnon";
 /* import IsAdmin from "./components/auth/IsAdmin"; */
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import OrderList2 from "./components/pages/OrderList2";
+import OrderList from "./components/pages/OrderList";
 import TabbedAuthForm from "./components/pages/auth/TabbedAuthForm";
 
 function App() {
@@ -57,6 +58,15 @@ function App() {
           }
         />
         <Route
+          path='/profile/'
+          element={
+            <IsPrivate>
+              <Navbar />
+              <Profile />
+            </IsPrivate>
+          }
+        />
+        <Route
           path='/add-balance/'
           element={
             <IsCustomer>
@@ -80,7 +90,7 @@ function App() {
           element={
             <IsPrivate>
               <Navbar />
-              <OrderList2 />
+              <OrderList />
             </IsPrivate>
           }
         />

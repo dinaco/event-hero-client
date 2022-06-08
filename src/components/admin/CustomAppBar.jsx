@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../context/auth.context";
+import { useNavigate } from "react-router-dom";
 import { AppBar } from "react-admin";
 import {
   Typography,
@@ -12,11 +13,22 @@ import {
 } from "@mui/material";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
+import SettingsIcon from "@mui/icons-material/Settings";
 
 const CustomAppBar = (props) => {
   const { user, logoutUser } = useContext(AuthContext);
+  const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
+
+  const customLogoutUser = () => {
+    logoutUser();
+    navigate("/");
+  };
+
+  const userProfile = () => {
+    navigate(`/admin/users/${user._id}`);
+  };
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -80,7 +92,11 @@ const CustomAppBar = (props) => {
           }}
           open={Boolean(anchorElUser)}
           onClose={handleCloseUserMenu}>
-          <MenuItem onClick={logoutUser}>
+          <MenuItem onClick={userProfile}>
+            <SettingsIcon fontSize='small' sx={{ mr: 1 }} />
+            <Typography textAlign='center'>Profile</Typography>
+          </MenuItem>
+          <MenuItem onClick={customLogoutUser}>
             <PowerSettingsNewIcon fontSize='small' sx={{ mr: 1 }} />
             <Typography textAlign='center'>Logout</Typography>
           </MenuItem>
