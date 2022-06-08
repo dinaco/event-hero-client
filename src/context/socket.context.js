@@ -9,10 +9,8 @@ function SocketIoProviderWrapper(props) {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    if (user) {
-      setSocket(socketIOClient(process.env.REACT_APP_BASE_API_URL));
-    }
-  }, [user]);
+    setSocket(socketIOClient("http://localhost:5006"));
+  }, []);
 
   return (
     <SocketIoContext.Provider

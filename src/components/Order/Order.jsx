@@ -37,6 +37,7 @@ const ExpandMore = styled(({ expand, ...other }) => {
 }));
 
 function Order() {
+  const { socket } = useContext(SocketIoContext);
   const { orderId } = useParams();
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
@@ -45,7 +46,7 @@ function Order() {
   const [activeStep, setActiveStep] = useState(1);
 
   const [expanded, setExpanded] = useState(false);
-
+  console.log(socket);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -134,6 +135,14 @@ function Order() {
       setPageLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (socket) {
+      socket.on("orderChange", () => {
+        getOrderInfo();
+      });
+    }
+  }, [socket, order]);
 
   useEffect(() => {
     getOrderInfo();
