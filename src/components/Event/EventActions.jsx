@@ -26,9 +26,7 @@ function EventActions({ event, user }) {
       {event.customers.some((customer) => customer._id === user._id) && (
         <OrderListButton event={event} />
       )}
-      {event.staff.some((staff) => staff._id === user._id) && (
-        <OrderListButton event={event} />
-      )}
+      {user.role === "event-staff" && <OrderListButton event={event} />}
     </Stack>
   );
 }

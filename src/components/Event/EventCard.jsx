@@ -46,7 +46,7 @@ function EventCard({ eventInfo, user }) {
 
   return (
     <Card sx={{ my: 2 }}>
-      {!eventInfo && <h2>No events found</h2>}
+      {!eventInfo && <h2>We couldn't find this event!</h2>}
       {eventInfo && (
         <>
           <Link to={`/event/${eventInfo._id}`}>
