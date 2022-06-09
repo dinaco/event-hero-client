@@ -155,6 +155,9 @@ function Order() {
 
   useEffect(() => {
     getOrderInfo();
+    return () => {
+      setOrder(null);
+    };
   }, [orderId]);
 
   return (
