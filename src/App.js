@@ -7,7 +7,7 @@ import NotFound from "./components/pages/NotFound";
 import Event from "./components/pages/Event";
 import Order from "./components/Order/Order";
 import OrderTake from "./components/Order/OrderTake";
-import AddBalance from "./components/MyAccount/AddBalance";
+import AddFunds from "./components/MyAccount/AddFunds";
 import Profile from "./components/pages/Profile";
 import EventList from "./components/pages/EventList";
 import OrderForm from "./components/pages/OrderForm";
@@ -67,11 +67,11 @@ function App() {
           }
         />
         <Route
-          path='/add-balance/'
+          path='/add-funds/'
           element={
             <IsCustomer>
               <Navbar />
-              <AddBalance />
+              <AddFunds />
             </IsCustomer>
           }
         />

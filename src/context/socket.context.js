@@ -9,7 +9,7 @@ function SocketIoProviderWrapper(props) {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    setSocket(socketIOClient(process.env.REACT_APP_BASE_API_URL));
+    setSocket(socketIOClient(process.env.REACT_APP_BASE_API_SOCKET));
   }, []);
 
   return (

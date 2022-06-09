@@ -81,11 +81,18 @@ function Order() {
           },
         }
       );
-      setOrder(response.data);
-      if (response.data.status === "processing") {
-        setActiveStep(2);
-      } else if (response.data.status === "completed") {
-        setActiveStep(4);
+
+      if (
+        user._id === response.data.customer._id ||
+        user._id === response.data.staff._id
+      ) {
+        console.log("inside");
+        setOrder(response.data);
+        if (response.data.status === "processing") {
+          setActiveStep(2);
+        } else if (response.data.status === "completed") {
+          setActiveStep(4);
+        }
       }
 
       setPageLoading(false);
@@ -139,6 +146,7 @@ function Order() {
   useEffect(() => {
     if (socket) {
       socket.on("orderChange", () => {
+        console.log("socket worked");
         getOrderInfo();
       });
     }
@@ -255,36 +263,38 @@ function Order() {
           </CardActions>
           <Collapse in={expanded} timeout='auto' unmountOnExit>
             <CardContent>
-              {order.products.map((item) => {
-                return (
-                  <Paper key={order._id} elevation={20}>
-                    <Stack
-                      py={4}
-                      px={2}
-                      spacing={2}
-                      direction='row'
-                      justifyContent='space-between'
-                      alignItems='center'>
-                      <Stack>
-                        <Typography py={1} variant='body1' gutterBottom>
-                          Item: {item.name}
-                        </Typography>
-                        <Typography py={1} variant='body1' gutterBottom>
-                          Qty: {item.quantity}
-                        </Typography>
+              <Stack spacing={2}>
+                {order.products.map((item) => {
+                  return (
+                    <Paper key={order._id} elevation={20}>
+                      <Stack
+                        py={4}
+                        px={2}
+                        spacing={2}
+                        direction='row'
+                        justifyContent='space-between'
+                        alignItems='center'>
+                        <Stack>
+                          <Typography py={1} variant='body1' gutterBottom>
+                            Item: {item.name}
+                          </Typography>
+                          <Typography py={1} variant='body1' gutterBottom>
+                            Qty: {item.quantity}
+                          </Typography>
+                        </Stack>
+                        <Stack>
+                          <Typography py={1} variant='body1' gutterBottom>
+                            Total: € {(item.quantity * item.price).toFixed(2)}
+                          </Typography>
+                          <Typography py={1} variant='body1' gutterBottom>
+                            Price: € {item.price.toFixed(2)}
+                          </Typography>
+                        </Stack>
                       </Stack>
-                      <Stack>
-                        <Typography py={1} variant='body1' gutterBottom>
-                          Total: € {(item.quantity * item.price).toFixed(2)}
-                        </Typography>
-                        <Typography py={1} variant='body1' gutterBottom>
-                          Price: € {item.price.toFixed(2)}
-                        </Typography>
-                      </Stack>
-                    </Stack>
-                  </Paper>
-                );
-              })}
+                    </Paper>
+                  );
+                })}
+              </Stack>
             </CardContent>
           </Collapse>
         </Stack>

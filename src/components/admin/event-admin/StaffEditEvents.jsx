@@ -7,14 +7,14 @@ import {
 } from "react-admin";
 
 const StaffEditEvents = ({ source }) => {
-  const record = useRecordContext();
+  // const record = useRecordContext();
   const { data } = useGetList("events-role");
-  let selected = [];
+  /*   let selected = [];
   if (source) {
     record[source].map((event) =>
       selected.push({ _id: event._id, name: event.name })
     );
-  }
+  } */
   //TODO: default value not working, multiple choices
   return (
     <SelectArrayInput
@@ -25,7 +25,6 @@ const StaffEditEvents = ({ source }) => {
       optionValue='_id'
       label='Relate Events'
       validate={required()}
-      defaultValue={selected}
     />
   );
 };

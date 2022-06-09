@@ -11,7 +11,6 @@ import {
   ChipField,
   minValue,
 } from "react-admin";
-import ProductEventsSelect from "./ProductEventsSelect";
 import { Avatar } from "@mui/material";
 
 function ProductEdit() {
@@ -46,7 +45,6 @@ function ProductEdit() {
           validate={validatePrice}
         />
         <BooleanInput source='active' />
-        <ProductEventsSelect source='event' />
         <ChipField source='event.name' />
       </SimpleForm>
     </Edit>

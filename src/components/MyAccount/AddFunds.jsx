@@ -7,7 +7,7 @@ import { Button, IconButton, Stack, Typography } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 
-function AddBalance() {
+function AddFunds() {
   const [amount, setAmount] = useState(10);
   const navigate = useNavigate();
 
@@ -27,7 +27,7 @@ function AddBalance() {
     const body = { amount };
     const getToken = localStorage.getItem("authToken");
     axios
-      .put(`${process.env.REACT_APP_BASE_API_URL}/api/add-balance`, body, {
+      .put(`${process.env.REACT_APP_BASE_API_URL}/api/add-funds`, body, {
         headers: {
           Authorization: `Bearer ${getToken}`,
         },
@@ -52,7 +52,7 @@ function AddBalance() {
             my: 2,
             alignSelf: "center",
           }}>
-          Add Balance
+          Add Funds
         </Typography>
         <Stack
           direction='row'
@@ -90,4 +90,4 @@ function AddBalance() {
     </Card>
   );
 }
-export default AddBalance;
+export default AddFunds;

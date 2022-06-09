@@ -35,6 +35,7 @@ function UserCreate() {
           source='role'
           validate={required()}
           choices={[
+            { id: "customer", name: "Customer" },
             { id: "app-admin", name: "App Admin" },
             { id: "event-admin", name: "Event Admin" },
             { id: "event-staff", name: "Event Staff" },
