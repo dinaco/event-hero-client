@@ -157,12 +157,12 @@ function Order() {
     if (socket) {
       socket.on("orderChange", () => {
         getOrderInfo();
+        infoHandle("Order updated");
       });
     }
   }, []);
 
   useEffect(() => {
-    infoHandle("Order updated");
     getOrderInfo();
     return () => {
       orderId = null;
