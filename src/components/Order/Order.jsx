@@ -158,7 +158,6 @@ function Order() {
     if (socket) {
       socket.on("orderChange", () => {
         getOrderInfo();
-        infoHandle("Order updated");
       });
     }
   }, []);
