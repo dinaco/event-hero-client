@@ -46,7 +46,6 @@ function Order() {
   const [activeStep, setActiveStep] = useState(1);
 
   const [expanded, setExpanded] = useState(false);
-  console.log(socket);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -86,7 +85,6 @@ function Order() {
         user._id === response.data.customer._id ||
         user._id === response.data.staff._id
       ) {
-        console.log("inside");
         setOrder(response.data);
         if (response.data.status === "processing") {
           setActiveStep(2);
@@ -146,11 +144,10 @@ function Order() {
   useEffect(() => {
     if (socket) {
       socket.on("orderChange", () => {
-        console.log("socket worked");
         getOrderInfo();
       });
     }
-  }, [socket, order]);
+  }, []);
 
   useEffect(() => {
     getOrderInfo();
