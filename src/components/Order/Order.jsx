@@ -38,7 +38,7 @@ const ExpandMore = styled(({ expand, ...other }) => {
 
 function Order() {
   const { socket } = useContext(SocketIoContext);
-  const { orderId } = useParams();
+  let { orderId } = useParams();
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
   const [order, setOrder] = useState(null);
@@ -156,7 +156,7 @@ function Order() {
   useEffect(() => {
     getOrderInfo();
     return () => {
-      setOrder(null);
+      orderId = null;
     };
   }, [orderId]);
 
