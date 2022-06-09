@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/auth.context";
+import SocketIoContext from "../../context/socket.context";
 import QrCode from "./QrCode";
 import axios from "axios";
 import {
