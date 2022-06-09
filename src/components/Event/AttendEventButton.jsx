@@ -8,12 +8,9 @@ import {
   FormControlLabel,
 } from "@mui/material";
 
-function AttendEventButton({ user, event }) {
+function AttendEventButton({ attending, setAttending, event }) {
   const navigate = useNavigate();
 
-  const [attending, setAttending] = useState(
-    event.customers.some((customer) => customer._id === user._id)
-  );
   const changeAttendingStatus = () => {
     const body = { attending };
     const getToken = localStorage.getItem("authToken");
