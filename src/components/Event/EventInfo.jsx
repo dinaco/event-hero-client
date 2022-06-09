@@ -24,7 +24,7 @@ function EventInfo() {
         console.log(err);
         setPageLoading(false);
       });
-  }, [eventId]);
+  }, []);
 
   return (
     <div>

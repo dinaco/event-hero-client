@@ -70,7 +70,6 @@ function Order() {
   const getToken = localStorage.getItem("authToken");
 
   const getOrderInfo = async () => {
-    console.log(orderId);
     if (!orderId) return;
     try {
       setPageLoading(true);
@@ -158,7 +157,7 @@ function Order() {
     return () => {
       orderId = null;
     };
-  }, [orderId]);
+  }, []);
 
   return (
     <Card sx={{ my: 2, px: 2 }}>
