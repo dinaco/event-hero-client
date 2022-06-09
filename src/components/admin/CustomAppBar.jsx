@@ -27,7 +27,13 @@ const CustomAppBar = (props) => {
   };
 
   const userProfile = () => {
-    navigate(`/admin/users/${user._id}`);
+    let userRole;
+    if (user.role === "app-admin") {
+      userRole = "users";
+    } else {
+      userRole = "staff";
+    }
+    navigate(`/admin/${userRole}/${user._id}`);
   };
 
   const handleOpenNavMenu = (event) => {
