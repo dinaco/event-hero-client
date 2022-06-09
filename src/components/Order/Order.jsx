@@ -71,7 +71,7 @@ function Order() {
 
   const getOrderInfo = async () => {
     console.log(orderId);
-    if (order) return;
+    if (!orderId) return;
     try {
       setPageLoading(true);
       const response = await axios.get(
