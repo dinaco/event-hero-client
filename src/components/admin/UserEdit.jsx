@@ -20,6 +20,7 @@ import {
   minValue,
 } from "react-admin";
 import { Avatar } from "@mui/material";
+import StaffCreateEvents from "./event-admin/StaffCreateEvents";
 
 function UserEdit() {
   const validateEmail = [required(), email()];
@@ -72,6 +73,7 @@ function UserEdit() {
         <DateInput label='Member since' source='createdAt' disabled />
         <SelectRole />
         <NumberInput source='events.length' label='Events Attending' disabled />
+        <StaffCreateEvents />
         <ReferenceArrayField source='events' reference='events'>
           <SingleFieldList>
             <ChipField source='name' />

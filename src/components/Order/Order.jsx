@@ -66,6 +66,15 @@ function Order() {
     });
   };
 
+  const infoHandle = (message) => {
+    toast.info(message, {
+      position: "top-left",
+      autoClose: 1000,
+      closeOnClick: true,
+      //hideProgressBar: true,
+    });
+  };
+
   const getToken = localStorage.getItem("authToken");
 
   const getOrderInfo = async () => {
@@ -152,6 +161,7 @@ function Order() {
   }, []);
 
   useEffect(() => {
+    infoHandle("Order updated");
     getOrderInfo();
     return () => {
       orderId = null;
