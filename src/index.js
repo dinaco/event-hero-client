@@ -7,6 +7,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { AuthProviderWrapper } from "./context/auth.context";
 import { ThemeProvider } from "styled-components";
 import GlobalStyle from "./GlobalStyles";
+import { SocketIoProviderWrapper } from "./context/socket.context";
 
 const theme = {
   colors: {
@@ -17,14 +18,16 @@ const theme = {
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <AuthProviderWrapper>
+    <Router>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <Router>
-          <App />
-        </Router>
+        <AuthProviderWrapper>
+          <SocketIoProviderWrapper>
+            <App />
+          </SocketIoProviderWrapper>
+        </AuthProviderWrapper>
       </ThemeProvider>
-    </AuthProviderWrapper>
+    </Router>
   </React.StrictMode>
 );
 

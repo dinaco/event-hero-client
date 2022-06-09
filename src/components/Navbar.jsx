@@ -143,9 +143,9 @@ function Navbar() {
                   </>
                 )}
                 {isLoggedIn && user.role === "customer" && (
-                  <Link to='/add-balance'>
+                  <Link to='/add-funds'>
                     <MenuItem onClick={handleCloseUserMenu}>
-                      <Typography textAlign='center'>Add Balance</Typography>
+                      <Typography textAlign='center'>Add Funds</Typography>
                     </MenuItem>
                   </Link>
                 )}

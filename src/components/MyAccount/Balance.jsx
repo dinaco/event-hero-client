@@ -18,7 +18,7 @@ function Balance({ balance }) {
         component='div'
         gutterBottom>
         Balance € {balance.toFixed(2)}
-        <Link to={`/add-balance`}>
+        <Link to={`/add-funds`}>
           <AddCardIcon sx={{ fontSize: 35 }} />
         </Link>
       </Typography>

@@ -29,7 +29,7 @@ function UserList() {
         </Typography>
         <Typography variant='body1' gutterBottom>
           Total Balance: €{" "}
-          {data.reduce((sum, amount) => sum + amount.balance, 0)}
+          {data.reduce((sum, amount) => sum + amount.balance, 0).toFixed(2)}
         </Typography>
         <Typography variant='body2' gutterBottom>
           Total Customers:{" "}

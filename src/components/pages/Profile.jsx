@@ -150,7 +150,7 @@ function Profile() {
                 style={{ display: "none" }}
               />
             </Grid>
-            <Stack sx={{ p: 4 }} spacing={1}>
+            <Stack sx={{ p: 4 }} spacing={2}>
               <TextField
                 fullWidth
                 label='Full Name'

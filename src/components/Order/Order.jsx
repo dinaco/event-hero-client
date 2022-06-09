@@ -36,7 +36,8 @@ const ExpandMore = styled(({ expand, ...other }) => {
 }));
 
 function Order() {
-  const { orderId } = useParams();
+  const { socket } = useContext(SocketIoContext);
+  let { orderId } = useParams();
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
   const [order, setOrder] = useState(null);
@@ -44,7 +45,6 @@ function Order() {
   const [activeStep, setActiveStep] = useState(1);
 
   const [expanded, setExpanded] = useState(false);
-
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -69,6 +69,7 @@ function Order() {
   const getToken = localStorage.getItem("authToken");
 
   const getOrderInfo = async () => {
+    if (!orderId) return;
     try {
       setPageLoading(true);
       const response = await axios.get(
@@ -79,15 +80,22 @@ function Order() {
           },
         }
       );
-      setOrder(response.data);
-      if (response.data.status === "processing") {
-        setActiveStep(2);
-      } else if (response.data.status === "completed") {
-        setActiveStep(4);
+
+      if (
+        user._id === response.data.customer._id ||
+        user._id === response.data.staff._id
+      ) {
+        setOrder(response.data);
+        if (response.data.status === "processing") {
+          setActiveStep(2);
+        } else if (response.data.status === "completed") {
+          setActiveStep(4);
+        }
       }
 
       setPageLoading(false);
     } catch (err) {
+      setOrder(null);
       errorHandle(err.response.data.errorMessage);
       setPageLoading(false);
     }
@@ -105,6 +113,7 @@ function Order() {
         }
       );
       setPageLoading(false);
+      setOrder(null);
       navigate(`/event/${order.event._id}`);
     } catch (err) {
       errorHandle(err.response.data.errorMessage);
@@ -135,7 +144,18 @@ function Order() {
   };
 
   useEffect(() => {
+    if (socket) {
+      socket.on("orderChange", () => {
+        getOrderInfo();
+      });
+    }
+  }, []);
+
+  useEffect(() => {
     getOrderInfo();
+    return () => {
+      orderId = null;
+    };
   }, []);
 
   return (
@@ -245,36 +265,38 @@ function Order() {
           </CardActions>
           <Collapse in={expanded} timeout='auto' unmountOnExit>
             <CardContent>
-              {order.products.map((item) => {
-                return (
-                  <Paper key={order._id} elevation={20}>
-                    <Stack
-                      py={4}
-                      px={2}
-                      spacing={2}
-                      direction='row'
-                      justifyContent='space-between'
-                      alignItems='center'>
-                      <Stack>
-                        <Typography py={1} variant='body1' gutterBottom>
-                          Item: {item.name}
-                        </Typography>
-                        <Typography py={1} variant='body1' gutterBottom>
-                          Qty: {item.quantity}
-                        </Typography>
+              <Stack spacing={2}>
+                {order.products.map((item) => {
+                  return (
+                    <Paper key={order._id} elevation={20}>
+                      <Stack
+                        py={4}
+                        px={2}
+                        spacing={2}
+                        direction='row'
+                        justifyContent='space-between'
+                        alignItems='center'>
+                        <Stack>
+                          <Typography py={1} variant='body1' gutterBottom>
+                            Item: {item.name}
+                          </Typography>
+                          <Typography py={1} variant='body1' gutterBottom>
+                            Qty: {item.quantity}
+                          </Typography>
+                        </Stack>
+                        <Stack>
+                          <Typography py={1} variant='body1' gutterBottom>
+                            Total: € {(item.quantity * item.price).toFixed(2)}
+                          </Typography>
+                          <Typography py={1} variant='body1' gutterBottom>
+                            Price: € {item.price.toFixed(2)}
+                          </Typography>
+                        </Stack>
                       </Stack>
-                      <Stack>
-                        <Typography py={1} variant='body1' gutterBottom>
-                          Total: € {(item.quantity * item.price).toFixed(2)}
-                        </Typography>
-                        <Typography py={1} variant='body1' gutterBottom>
-                          Price: € {item.price.toFixed(2)}
-                        </Typography>
-                      </Stack>
-                    </Stack>
-                  </Paper>
-                );
-              })}
+                    </Paper>
+                  );
+                })}
+              </Stack>
             </CardContent>
           </Collapse>
         </Stack>

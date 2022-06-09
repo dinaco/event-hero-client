@@ -67,7 +67,6 @@ function AdminPage() {
         <Admin
           layout={CustomLayout}
           catchAll={NotFound}
-          dashboard={Dashboard}
           basename='/admin'
           dataProvider={dataProviderInfo}>
           {user && user.role === "app-admin" && (
