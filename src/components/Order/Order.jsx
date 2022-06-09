@@ -125,6 +125,7 @@ function Order() {
       setPageLoading(false);
       setOrder(null);
       navigate(`/event/${order.event._id}`);
+      infoHandle("Order deleted");
     } catch (err) {
       errorHandle(err.response.data.errorMessage);
       setPageLoading(false);
