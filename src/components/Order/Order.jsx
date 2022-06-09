@@ -99,6 +99,7 @@ function Order() {
       setOrder(null);
       errorHandle(err.response.data.errorMessage);
       setPageLoading(false);
+      getOrderInfo();
     }
   };
 
