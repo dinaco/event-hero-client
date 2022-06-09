@@ -70,6 +70,7 @@ function Order() {
   const getToken = localStorage.getItem("authToken");
 
   const getOrderInfo = async () => {
+    if (order) return;
     try {
       setPageLoading(true);
       const response = await axios.get(
@@ -95,6 +96,7 @@ function Order() {
 
       setPageLoading(false);
     } catch (err) {
+      setOrder(null);
       errorHandle(err.response.data.errorMessage);
       setPageLoading(false);
     }
@@ -112,6 +114,7 @@ function Order() {
         }
       );
       setPageLoading(false);
+      setOrder(null);
       navigate(`/event/${order.event._id}`);
     } catch (err) {
       errorHandle(err.response.data.errorMessage);
