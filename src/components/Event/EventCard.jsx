@@ -71,7 +71,10 @@ function EventCard({ eventInfo, user }) {
                 </Typography>
               </Link>
               {eventInfo.customers[0] && eventInfo.customers[0].profileImg && (
-                <AvatarGroup spacing='small' total={eventInfo.customers.length}>
+                <AvatarGroup
+                  //  spacing='small'
+                  max={3}
+                  total={eventInfo.customers.length}>
                   {eventInfo.customers.slice(0, 2).map((customer) => (
                     <Avatar
                       key={customer._id}

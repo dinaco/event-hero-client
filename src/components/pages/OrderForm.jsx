@@ -118,21 +118,23 @@ function OrderForm() {
       <ToastContainer />
       {!user && <LoadingImg />}
       {user && (
-        <Stack>
-          <Stack>
-            <Typography
-              variant='h5'
-              sx={{
-                my: 2,
-                alignSelf: "center",
-              }}>
-              Order @ {user.events[0].name}
-            </Typography>
-            <Balance balance={user.balance} />
-          </Stack>
-          {user.events[0].products.length === 0 && (
-            <p>No products assigned to this event</p>
-          )}
+        <Stack spacing={1}>
+          <Card>
+            <Stack>
+              <Typography
+                variant='h5'
+                sx={{
+                  my: 2,
+                  alignSelf: "center",
+                }}>
+                Order @ {user.events[0].name}
+              </Typography>
+              <Balance balance={user.balance} />
+            </Stack>
+            {user.events[0].products.length === 0 && (
+              <p>No products assigned to this event</p>
+            )}
+          </Card>
           <Card>
             <Stack
               spacing={1}

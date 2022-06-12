@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@mui/material";
+import { Fab } from "@mui/material";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 
 function OrderButton() {
@@ -11,9 +11,10 @@ function OrderButton() {
   };
 
   return (
-    <Button variant='contained' onClick={navigateTo} size='large'>
-      <AttachMoneyIcon /> Order
-    </Button>
+    <Fab color='primary' variant='extended' onClick={navigateTo} size='large'>
+      <AttachMoneyIcon />
+      Order
+    </Fab>
   );
 }
 

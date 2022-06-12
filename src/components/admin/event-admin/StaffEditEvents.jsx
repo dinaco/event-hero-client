@@ -1,21 +1,15 @@
 import React from "react";
-import {
-  useRecordContext,
-  SelectArrayInput,
-  useGetList,
-  required,
-} from "react-admin";
+import { useRecordContext, SelectArrayInput, useGetList } from "react-admin";
 
 const StaffEditEvents = ({ source }) => {
-  // const record = useRecordContext();
+  const record = useRecordContext();
   const { data } = useGetList("events-role");
-  /*   let selected = [];
-  if (source) {
-    record[source].map((event) =>
-      selected.push({ _id: event._id, name: event.name })
-    );
-  } */
-  //TODO: default value not working, multiple choices
+  let selected = [];
+  if (source === "users") {
+    record.events.map((event) => selected.push(event));
+  } else if (source === "staff") {
+    record.events.map((event) => selected.push(event._id));
+  }
   return (
     <SelectArrayInput
       source='eventsrole'
@@ -23,8 +17,8 @@ const StaffEditEvents = ({ source }) => {
       choices={data}
       optionText='name'
       optionValue='_id'
-      label='Relate Events'
-      validate={required()}
+      label='Related Events'
+      defaultValue={selected}
     />
   );
 };

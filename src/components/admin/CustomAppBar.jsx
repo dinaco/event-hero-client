@@ -18,8 +18,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 const CustomAppBar = (props) => {
   const { user, logoutUser } = useContext(AuthContext);
   const navigate = useNavigate();
-  const [anchorElNav, setAnchorElNav] = useState(null);
-  const [anchorElUser, setAnchorElUser] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(false);
 
   const customLogoutUser = () => {
     logoutUser();
@@ -36,15 +35,8 @@ const CustomAppBar = (props) => {
     navigate(`/admin/${userRole}/${user._id}`);
   };
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
   };
 
   const handleCloseUserMenu = () => {

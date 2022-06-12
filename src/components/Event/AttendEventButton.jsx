@@ -1,34 +1,37 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useContext } from "react";
+import { AuthContext } from "../../context/auth.context";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import {
-  Switch,
-  FormControl,
-  FormGroup,
-  FormControlLabel,
-} from "@mui/material";
+import { Fab } from "@mui/material";
+import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 
 function AttendEventButton({ attending, setAttending, event }) {
   const navigate = useNavigate();
 
+  const { user } = useContext(AuthContext);
+
   const changeAttendingStatus = () => {
-    const body = { attending };
-    const getToken = localStorage.getItem("authToken");
-    axios
-      .put(
-        `${process.env.REACT_APP_BASE_API_URL}/api/event/${event._id}`,
-        body,
-        {
-          headers: {
-            Authorization: `Bearer ${getToken}`,
-          },
-        }
-      )
-      .then((response) => {
-        setAttending(!attending);
-        navigate(`/event/${event._id}`);
-      })
-      .catch((err) => console.log(err));
+    if (user) {
+      const body = { attending };
+      const getToken = localStorage.getItem("authToken");
+      axios
+        .put(
+          `${process.env.REACT_APP_BASE_API_URL}/api/event/${event._id}`,
+          body,
+          {
+            headers: {
+              Authorization: `Bearer ${getToken}`,
+            },
+          }
+        )
+        .then((response) => {
+          setAttending(!attending);
+          navigate(`/event/${event._id}`);
+        })
+        .catch((err) => console.log(err));
+    } else {
+      navigate(`/`);
+    }
   };
 
   /*   const AttendEventToggle = () => {
@@ -37,22 +40,13 @@ function AttendEventButton({ attending, setAttending, event }) {
   }; */
 
   return (
-    <FormControl component='fieldset'>
-      <FormGroup aria-label='position' row>
-        <FormControlLabel
-          value='top'
-          control={
-            <Switch
-              checked={attending}
-              onChange={changeAttendingStatus}
-              size='large'
-            />
-          }
-          label='Attend?'
-          labelPlacement='top'
-        />
-      </FormGroup>
-    </FormControl>
+    <Fab
+      color={attending ? "primary" : ""}
+      onClick={changeAttendingStatus}
+      size='large'
+      aria-label='favorite'>
+      <LocalFireDepartmentIcon />
+    </Fab>
   );
 }
 

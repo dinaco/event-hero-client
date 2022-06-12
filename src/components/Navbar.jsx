@@ -18,8 +18,8 @@ import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 
 function Navbar() {
   const { isLoggedIn, user, logoutUser } = useContext(AuthContext);
-  const [anchorElNav, setAnchorElNav] = useState(null);
-  const [anchorElUser, setAnchorElUser] = useState(null);
+  const [anchorElNav, setAnchorElNav] = useState(false);
+  const [anchorElUser, setAnchorElUser] = useState(false);
 
   const navigate = useNavigate();
 

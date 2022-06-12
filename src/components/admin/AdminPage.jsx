@@ -37,7 +37,6 @@ function AdminPage() {
       options.headers.set("Authorization", `Bearer ${token}`);
       return fetchUtils.fetchJson(url, options);
     };
-    // const getToken = localStorage.getItem("authToken");
     setdataProviderInfo(
       jsonServerProvider(
         `${process.env.REACT_APP_BASE_API_URL}/api/admin`,

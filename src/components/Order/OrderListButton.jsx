@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@mui/material";
+import { Fab } from "@mui/material";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 
 function OrderListButton({ event }) {
@@ -11,9 +11,10 @@ function OrderListButton({ event }) {
   };
 
   return (
-    <Button variant='contained' onClick={navigateTo} size='large'>
-      <FormatListBulletedIcon /> Orders
-    </Button>
+    <Fab color='primary' variant='extended' onClick={navigateTo} size='large'>
+      <FormatListBulletedIcon sx={{ mr: 1 }} />
+      Orders
+    </Fab>
   );
 }
 

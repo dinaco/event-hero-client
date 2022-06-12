@@ -19,6 +19,7 @@ import {
   minValue,
 } from "react-admin";
 import { Avatar } from "@mui/material";
+import StaffEditEvents from "./event-admin/StaffEditEvents";
 
 //TODO: enable editing users/staff/admin attending events import StaffEditEvents and tweak it
 
@@ -47,6 +48,7 @@ function UserEdit() {
         source='role'
         defaultValue={record.role}
         choices={[
+          { id: "customer", name: "Customer" },
           { id: "app-admin", name: "App Admin" },
           { id: "event-admin", name: "Event Admin" },
           { id: "event-staff", name: "Event Staff" },
@@ -72,6 +74,7 @@ function UserEdit() {
         <BooleanInput source='active' />
         <DateInput label='Member since' source='createdAt' disabled />
         <SelectRole />
+        <StaffEditEvents source='users' />
         <NumberInput source='events.length' label='Events Attending' disabled />
         <ReferenceArrayField source='events' reference='events'>
           <SingleFieldList>
