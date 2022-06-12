@@ -26,7 +26,7 @@ function StaffEdit() {
           Current Events
         </Typography>
         <ArrayField source='events' title='Current Events'>
-          <SingleFieldList>
+          <SingleFieldList linkType={false}>
             <ChipField source='name' />
           </SingleFieldList>
         </ArrayField>

@@ -4,9 +4,6 @@ import {
   SimpleForm,
   TextInput,
   DateInput,
-  ReferenceArrayField,
-  ChipField,
-  SingleFieldList,
   SelectInput,
   required,
   NumberInput,
@@ -17,11 +14,14 @@ import {
   minLength,
   email,
   minValue,
+  ReferenceArrayField,
+  SingleFieldList,
+  ChipField,
 } from "react-admin";
 import { Avatar } from "@mui/material";
 import StaffEditEvents from "./event-admin/StaffEditEvents";
 
-//TODO: enable editing users/staff/admin attending events import StaffEditEvents and tweak it
+//TODO: enable editing users/staff/admin attending events
 
 function UserEdit() {
   const validateEmail = [required(), email()];
@@ -77,7 +77,7 @@ function UserEdit() {
         <StaffEditEvents source='users' />
         <NumberInput source='events.length' label='Events Attending' disabled />
         <ReferenceArrayField source='events' reference='events'>
-          <SingleFieldList>
+          <SingleFieldList linkType={false}>
             <ChipField source='name' />
           </SingleFieldList>
         </ReferenceArrayField>

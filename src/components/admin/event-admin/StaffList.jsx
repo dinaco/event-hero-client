@@ -40,7 +40,7 @@ function StaffList() {
         <EmailField source='email' />
         <ChipField source='role' />
         <ArrayField label='Attending Events' source='events'>
-          <SingleFieldList>
+          <SingleFieldList linkType={false}>
             <ChipField source='name' />
           </SingleFieldList>
         </ArrayField>

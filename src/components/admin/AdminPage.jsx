@@ -67,7 +67,7 @@ function AdminPage() {
           layout={CustomLayout}
           catchAll={NotFound}
           basename='/admin'
-          dashboard={Dashboard}
+          //  dashboard={Dashboard}
           dataProvider={dataProviderInfo}>
           {user && user.role === "app-admin" && (
             <Resource
@@ -107,13 +107,25 @@ function AdminPage() {
               edit={EventEditSimple}
             />
           )}
-          <Resource
-            name='products'
-            icon={FastfoodIcon}
-            list={ProductsList}
-            create={ProductCreate}
-            edit={ProductEdit}
-          />
+          {user && user.role === "app-admin" && (
+            <Resource
+              name='products'
+              icon={FastfoodIcon}
+              list={ProductsList}
+              create={ProductCreate}
+              edit={ProductEdit}
+            />
+          )}
+          {user && user.role === "event-admin" && (
+            <Resource
+              name='products-role'
+              options={{ label: "Products" }}
+              icon={FastfoodIcon}
+              list={ProductsList}
+              create={ProductCreate}
+              edit={ProductEdit}
+            />
+          )}
         </Admin>
       )}
     </div>
