@@ -21,7 +21,7 @@ function StaffEdit() {
         <TextInput source='name' validate={required()} />
         <TextInput source='email' validate={required()} />
         <BooleanInput source='active' validate={required()} />
-        <StaffEditEvents source='staff' />
+        <StaffEditEvents source='events-role' />
         <Typography variant='body1' gutterBottom>
           Current Events
         </Typography>

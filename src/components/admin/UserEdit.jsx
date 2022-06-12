@@ -74,7 +74,7 @@ function UserEdit() {
         <BooleanInput source='active' />
         <DateInput label='Member since' source='createdAt' disabled />
         <SelectRole />
-        <StaffEditEvents source='users' />
+        <StaffEditEvents source='events' />
         <NumberInput source='events.length' label='Events Attending' disabled />
         <ReferenceArrayField source='events' reference='events'>
           <SingleFieldList linkType={false}>

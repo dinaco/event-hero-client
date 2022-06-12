@@ -1,8 +1,8 @@
 import * as React from "react";
 import { SelectArrayInput, useGetList, required } from "react-admin";
 
-const StaffCreateEvents = () => {
-  const { data } = useGetList("events-role");
+const StaffCreateEvents = ({ source }) => {
+  const { data } = useGetList(source);
   return (
     <SelectArrayInput
       source='eventsrole'

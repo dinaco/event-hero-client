@@ -41,7 +41,7 @@ function UserCreate() {
             { id: "event-staff", name: "Event Staff" },
           ]}
         />
-        <StaffCreateEvents />
+        <StaffCreateEvents source='events' />
         <BooleanInput source='active' />
       </SimpleForm>
     </Create>

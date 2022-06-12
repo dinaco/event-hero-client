@@ -31,7 +31,7 @@ function StaffCreate() {
             { id: "event-staff", name: "Event Staff" },
           ]}
         />
-        <StaffCreateEvents />
+        <StaffCreateEvents source='events-role' />
         <BooleanInput source='active' validate={required()} />
       </SimpleForm>
     </Create>

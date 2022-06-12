@@ -3,12 +3,21 @@ import { useRecordContext, SelectArrayInput, useGetList } from "react-admin";
 
 const StaffEditEvents = ({ source }) => {
   const record = useRecordContext();
-  const { data } = useGetList("events-role");
+  const { data } = useGetList(source);
   let selected = [];
-  if (source === "users") {
-    record.events.map((event) => selected.push(event));
-  } else if (source === "staff") {
-    record.events.map((event) => selected.push(event._id));
+  console.log(record, source);
+  if (record.events) {
+    if (source === "events") {
+      record.events.map((event) => selected.push(event));
+    } else if (source === "events-role") {
+      record.events.map((event) => selected.push(event._id));
+    }
+  } else {
+    if (source === "events") {
+      record.eventsrole.map((event) => selected.push(event));
+    } else if (source === "events-role") {
+      record.eventsrole.map((event) => selected.push(event._id));
+    }
   }
   return (
     <SelectArrayInput
